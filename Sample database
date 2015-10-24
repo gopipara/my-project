@@ -1,0 +1,40 @@
+Sample database
+##Table name: student
+Attributes: id, 
+First name, 
+Last name, 
+Phone, 
+Gender, 
+DOB, 
+Address 
+Description: this table contains information about students.
+##Table name: Faculty
+Attributes: id, 
+First name, 
+Last name, 
+Phone, 
+Gender, 
+Specialization.
+Description: this table contains information about faculty.
+##Table name: Department
+Attributes: Id, 
+Name, 
+Courses, 
+Faculty id  
+Description: this table contains information about the different departments (computer science, electronics and electrical engineering, civil engineering,) available in the college and the courses offered by department.
+##Table name: courses
+Attributes: 
+Course id, 
+Course name, 
+Faculty id
+Description: this table contains information about courses that are related to their majors
+## Table name: fee structure
+Attributes: 
+Course id, 
+Course name, 
+Credits, 
+Fee per credit, 
+Total
+Description: this table contains information about tuition fee according to credits and fee per credit.
+NOTE: This is a sample database this may vary as we proceed.
+
