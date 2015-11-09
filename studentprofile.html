@@ -34,13 +34,13 @@
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="home.html"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="Student.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
                           <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
@@ -68,6 +68,15 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            STUDENT ID :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+
                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             STUDENT FIRST NAME :
                             </div>
@@ -82,39 +91,45 @@
                             <input type="text" name="sLName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            STUDENT MIDDLE NAME :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sMName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             DATE OF BIRTH :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sDob" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="date" name="sDob" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             STUDENT GENDER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sG" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                           
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="gender" id="mGender" value="M" checked="checked">
+                                Male
+                              </label>
+                              </div>
+                               <div class="radio">
+                               <label>
+                                <input type="radio" name="gender" id="fender" value="F">
+                                Female
+                              </label>
+                            </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sPhone" id="inputSName" class="form-control" value="" required="required" pattern="[789][0-9]{9}" title="">
                             </div>
 
                              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             EMAIL-ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sEID" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="email" name="sEID" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
                             
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
@@ -137,7 +152,7 @@
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="cP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="number" name="cP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">

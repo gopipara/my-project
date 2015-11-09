@@ -1,7 +1,49 @@
+<?php
+session_start();
+if(isset($_SESSION['user'])!="")
+{
+ header("Location: login.php");
+}
+
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+//include_once 'js/connection.php';
+
+if(isset($_POST['submit']) && !isset($_SESSION['user']))
+{
+ $uname = mysqli_real_escape_string($link,$_POST['name']);
+ $upass = md5(mysqli_real_escape_string($link,$_POST['password']));
+ $qry = mysqli_query($link,"SELECT u_id,u_name,password from users where u_name = '$uname' ");
+ $row=mysqli_fetch_array($qry);
+
+ if($row['password']==$upass)
+ {
+
+  $_SESSION['user'] = $row['u_id'];
+//echo $_SESSION['user'];
+ header("Location: home.php");
+ }
+ else
+ {
+  ?>
+        <script>alert('incorrect details...');</script>
+        <?php
+ }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Login</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -34,13 +76,13 @@
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="file:///C:/Users/rakes_000/Desktop/ssd.project/maristcollege/home.html"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="file:///C:/Users/rakes_000/Desktop/ssd.project/maristcollege/Student.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="file:///C:/Users/rakes_000/Desktop/ssd.project/maristcollege/faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
                           <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
@@ -51,14 +93,7 @@
                        </li>
                      
                         </ul>
-                      <ul class="nav navbar-nav pull-right" >
-                        <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
-                       </li>
-                       <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
-                       </li>
-                      </ul>
+                   
                     </div>
                 </div>
                 <!-- /top nav -->
@@ -68,15 +103,24 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Profile Details</legend>
-
-
-                            <legend>Course Details</legend>
-                            <center><div class="btn-group-vertical">
-                            	<button type="button" class="btn btn-default">Courses Taken</button>
-                            	<button type="button" class="btn btn-default">Add/Drop course</button>
-                            	<button type="button" class="btn btn-default">Grade Upto</button>
-                            </div></center>
+                            <form method="post">
+                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-md-offset-4">
+                            <legend>Login</legend>
+                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                           			 <label>User Name</label>
+                            		<input type="text" name="name" id="inputName" class="form-control" required="required"  title="">
+                            	</div>
+                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Password</label>
+                            		<input type="password" name="password" id="password"   class="form-control" required="required" title="">
+                            	</div>
+              								
+                            
+            								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            									<button type="submit" id="sign_up" name="submit" class="btn btn-lg btn-primary">Login</button>		
+            								</div>	
+                            </div>
+                            </form>
 
                             
                         </div>
@@ -101,8 +145,7 @@
                                </ul>
                              </div>
   
-                        </div>   
-    	
+                        </div>         
     
     </body>
     

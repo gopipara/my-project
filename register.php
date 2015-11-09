@@ -1,7 +1,48 @@
+<?php
+session_start();
+if(isset($_SESSION['user'])!="")
+{
+ header("Location: login.php");
+}
+
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+//include_once 'js/connection.php';
+
+if(isset($_POST['submit']))
+{
+ $uname = mysqli_real_escape_string($link,$_POST['name']);
+ $email = mysqli_real_escape_string($link,$_POST['email']);
+ $upass = md5(mysqli_real_escape_string($link,$_POST['password']));
+ $role = $_POST['roles'];
+
+ if(mysqli_query($link,"INSERT INTO users(u_name,email,password,role) VALUES('$uname','$email','$upass','$role')"))
+ {
+  ?>
+        <script>alert('successfully registered ');</script>
+        <?php
+ }
+ else
+ {
+  ?>
+        <script>alert('error while registering you...');</script>
+        <?php
+ }
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Register</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -34,13 +75,13 @@
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="file:///C:/Users/rakes_000/Desktop/ssd.project/maristcollege/home.html"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="file:///C:/Users/rakes_000/Desktop/ssd.project/maristcollege/Student.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="file:///C:/Users/rakes_000/Desktop/ssd.project/maristcollege/faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
                           <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
@@ -68,15 +109,39 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Profile Details</legend>
-
-
-                            <legend>Course Details</legend>
-                            <center><div class="btn-group-vertical">
-                            	<button type="button" class="btn btn-default">Courses Taken</button>
-                            	<button type="button" class="btn btn-default">Add/Drop course</button>
-                            	<button type="button" class="btn btn-default">Grade Upto</button>
-                            </div></center>
+                            <form method="post">
+                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-md-offset-4">
+                            <legend>Register</legend>
+                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                           			 <label>User Name</label>
+                            		<input type="text" name="name" id="inputName" class="form-control" value="test" required="required"  title="">
+                            	</div>
+                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Password</label>
+                            		<input type="password" name="password" id="password"value="test"  class="form-control" required="required" title="">
+                            	</div>
+              								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Confirm Password</label>
+              									<input type="password" name="confirm_password" value="test"  id="confirm_password" class="form-control" required="required" title="">
+                                <span id="message"></span>
+              								</div>                            
+              								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Email</label>
+                              		<input type="email" name="email" id="inputEmail" class="form-control" value="test@gmail.com" required="required" title="">
+                              	</div>
+              								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Role:</label>
+              									<select name="roles" id="inputRoles" class="form-control" required="required">
+  		                            		<option value="1">Reception</option>
+  		                            		<option value="2">Admin</option>
+              									</select>							                            	
+              								</div>
+                            
+            								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            									<button type="submit" id="sign_up" name="submit" class="btn btn-lg btn-primary">Sign Up</button>		
+            								</div>	
+                            </div>
+                            </form>
 
                             
                         </div>
@@ -103,6 +168,13 @@
   
                         </div>   
     	
+
+      <script>
+        $('#password, #confirm_password').on('keyup', function () { if ($('#password').val() == $('#confirm_password').val()) { $('#message').html('Matching').css('color', 'green'); } else $('#message').html('Not Matching').css('color', 'red'); });
+
+      </script>
+
+      
     
     </body>
     
