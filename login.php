@@ -76,16 +76,16 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="login.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="login.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="login.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
+                          <a href="login.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
@@ -93,6 +93,13 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
                        </li>
                      
                         </ul>
+
+                        <ul class="nav navbar-nav pull-right" >
+                        
+                       <li>
+                         <a  href="register.php?register" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Sign up</a>
+                       </li>
+                      </ul>
                    
                     </div>
                 </div>

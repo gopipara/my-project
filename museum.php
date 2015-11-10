@@ -1,7 +1,28 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Museum studies at marist</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -43,7 +64,7 @@
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
@@ -56,7 +77,7 @@
                          <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,32 +89,56 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Current Faculty</legend>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by ID :
+
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                             <legend>Majors Offering</legend>
+                              <div class="list-group">
+                                <a href="majors.php" class="list-group-item ">
+                                  MS in Computer Science
+                                </a>
+                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
+                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
+                                <a href="museum.php" class="list-group-item active">Master's in Museum Studies</a>
+                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
+                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
+                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
+                              </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                              
+
+                              <h2>MASTER OF ARTS IN MUSEUM STUDIES </h2>
+
+                              <p>The M.A. in Museum Studies is an interdisciplinary advanced degree program which aims to provide students with an understanding of how museums operate within their social and cultural contexts. Drawing on faculty from the U.S., U.K. and continental Europe, courses are taught using a variety of innovative methods, yet they share two fundamental core principles which are embedded in the program’s philosophy: 1) museums’ engagement with the public is paramount and 2) museums vary greatly across the globe and therefore must be studied from an international comparative perspective.</p>
+
+                              <h3>Course Requirements</h3>
+                              <p>Candidates for the Master of Arts in Museum studies must complete the following: </p>
+
+
+
+                              <ol>
+                                  <li>Museums and the Public I: People and Ideas </li>
+                                  <li>Museums, Galleries, and the History of Collecting</li>
+                                  <li>Museum Development, Management, and Leadership</li>
+                                  <li> Art and Objects in Museums and in Context </li>
+                                  <li>Research Methods I: Methodology and Resources</li>
+                                  <li>Museums and the Public II: Objects and Audience </li>
+                                  <li>Museum Ethics and the Law </li>
+                                  <li> Research Methods II: Thesis Proposal</li>
+                                  <li>Internship</li>
+                                  <li>Thesis</li>
+                              </ol>
+                          
+                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
+
+                              <b>Onkar P. Sharma, Ph.D.
+                              (845) 575-3000, ext. 3610 or 2523
+                              onkar.sharma@marist.edu </b>
+
+
                             </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by Last Name :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLastName" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
-                            <p>
-                            &nbsp;
-                            </p>
-
-                             <button type="button" class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 ">Search</button>
-
-
-
-                            <legend>Regester a New Faculty</legend>
-
-                           <a href="facultyprofile.html"><center> <button type="button" class="btn btn-default">Create Faculty Profile      </button></center></a>
-
+                        
                             
                         </div>
                             <!-- end Here -->

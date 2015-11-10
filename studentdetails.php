@@ -1,3 +1,25 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,16 +56,16 @@
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
+                          <a href="majors.html"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
@@ -56,7 +78,7 @@
                          <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,8 +90,15 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Electronics</legend>
-                            
+                            <legend>Profile Details</legend>
+
+
+                            <legend>Course Details</legend>
+                            <center><div class="btn-group-vertical">
+                            	<button type="button" class="btn btn-default">Courses Taken</button>
+                            	<button type="button" class="btn btn-default">Add/Drop course</button>
+                            	<button type="button" class="btn btn-default">Grade Upto</button>
+                            </div></center>
 
                             
                         </div>

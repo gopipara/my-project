@@ -1,7 +1,28 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>MS in Accounting at marist</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -43,7 +64,7 @@
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
@@ -56,7 +77,7 @@
                          <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,32 +89,56 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Current Faculty</legend>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by ID :
+
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                             <legend>Majors Offering</legend>
+                              <div class="list-group">
+                                <a href="majors.php" class="list-group-item ">
+                                  MS in Computer Science
+                                </a>
+                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
+                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
+                                <a href="museum.php" class="list-group-item">Master's in Museum Studies</a>
+                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
+                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
+                                <a href="acco.php" class="list-group-item active">MS in Accounting</a>
+                              </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                              
+
+                              <h2>MASTER OF SCIENCE IN ACCOUNTING </h2>
+
+                              <p>Today’s accounting majors are expected not only to provide auditing, accounting, and tax services for small and large companies, but also to provide services inforecasting, financial planning and evaluation, and the creation and monitoring of new technologies. The accounting program at Marist College provides a high-quality, professional education in a supportive, interactive, and personalized learning environment. The program is designed to prepare accounting graduates to progress to sensitive management positions in business and industry, public accounting, and governmental units. Professional opportunities include careers as a certified public accountant (CPA) or as a certified management accountant (CMA).</p>
+
+                              <h3>Course Requirements</h3>
+                              <p>Candidates for the Master of Science in Accounting must complete the following: </p>
+
+
+
+                              <ol>
+                                  <li>Financial accounting  </li>
+                                  <li>Managerial accounting</li>
+                                  <li>Intermediate Accounting I </li>
+                                  <li>Intermediate Accounting II</li>
+                                  <li>Cost Accounting </li>
+                                  <li>Financial Statement Analysis </li>
+                                  <li>Advanced Accounting </li>
+                                  <li>Auditing</li>
+                                  <li>Tax I</li>
+                                  <li>Government and Not-For-Profit Accounting</li>
+                              </ol>
+                          
+                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
+
+                              <b>Onkar P. Sharma, Ph.D.
+                              (845) 575-3000, ext. 3610 or 2523
+                              onkar.sharma@marist.edu </b>
+
+
                             </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by Last Name :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLastName" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
-                            <p>
-                            &nbsp;
-                            </p>
-
-                             <button type="button" class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 ">Search</button>
-
-
-
-                            <legend>Regester a New Faculty</legend>
-
-                           <a href="facultyprofile.html"><center> <button type="button" class="btn btn-default">Create Faculty Profile      </button></center></a>
-
+                        
                             
                         </div>
                             <!-- end Here -->

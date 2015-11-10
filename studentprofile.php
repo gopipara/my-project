@@ -1,7 +1,29 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Marist college Student Profile</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -40,10 +62,10 @@
                           <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.html"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
@@ -56,7 +78,7 @@
                          <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,60 +90,121 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            FACULTY FIRST NAME :
+                            STUDENT ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fFName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+
+                           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            STUDENT FIRST NAME :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sFName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            FACULTY LAST NAME :
+                            STUDENT LAST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sLName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            FACULTY MIDDLE NAME :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fMName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
-                            
+
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             DATE OF BIRTH :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fDOB" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="date" name="sDob" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            GENDER :
+                            STUDENT GENDER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fGEN" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                           
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="gender" id="mGender" value="M" checked="checked">
+                                Male
+                              </label>
+                              </div>
+                               <div class="radio">
+                               <label>
+                                <input type="radio" name="gender" id="fGender" value="F">
+                                Female
+                              </label>
+                            </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sPhone" id="inputSName" class="form-control" value="" required="required" pattern="[789][0-9]{9}" title="">
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            EMAIL-ID:
+                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            EMAIL-ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fEID" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="email" name="sEID" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
-
+                            
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             ADDRESS :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fADD" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sAdd" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+                            <legend>EMERGENCY CONTACT PERSON</legend>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            CONTACT NAME :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="cName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            PHONE NUMBER :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="number" name="cP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            ADDRESS  :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="cAdd" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+                            <legend>EDUCATION DETAILS</legend>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            LAST SCHOOL :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sLastSchool" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            DEGREE ACHIEVED :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sDegAch" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            GRADE :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sGrade" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
                             </div>
 
                             <legend></legend>
@@ -131,6 +214,7 @@
                             	
                             	<button type="button" class="btn btn-default">Clear</button>
                             </div>
+
 
 
                             

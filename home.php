@@ -21,7 +21,7 @@ $userRow=mysqli_fetch_array($res);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Marist college home page</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -54,16 +54,16 @@ $userRow=mysqli_fetch_array($res);
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="home.html"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>

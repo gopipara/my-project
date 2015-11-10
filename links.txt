@@ -2,3 +2,13 @@ http://www.marist.edu/registrar/catalog/graduate.html
 
 http://www.marist.edu/admission/graduate/deadlines.html
 
+git status 
+
+git add .
+
+git commit -m "message"
+
+git push orgin mater
+
+
+git checkout venkataUppala

@@ -94,10 +94,7 @@ if(isset($_POST['submit']))
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
-                       </li>
-                       <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="login.php?login" class="clickable"><i class="glyphicon glyphicon-on"></i>&nbsp;Login</a>
                        </li>
                       </ul>
                     </div>
