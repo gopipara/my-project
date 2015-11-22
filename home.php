@@ -96,15 +96,15 @@ $userRow=mysqli_fetch_array($res);
                             </div>
 
                             <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 ">
-                              <a href="#" class="list-group-item"><center>services</center></a>
+                              <a href="https://www.marist.edu/academics/advise/" target="_blank" class="list-group-item"><center>services</center></a>
                               <a href="https://www.marist.edu/events/" class="list-group-item"><center>events</center></a>
                               <a href="#" class="list-group-item"><center>schedules</center></a>
                             </div>
 
                             <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-0 col-lg-offset-0">
-                              <a href="#" class="list-group-item"><center>Telephone Services</center></a>
-                              <a href="#" class="list-group-item"><center>faculty services</center></a>
-                              <a href="https://maristdining.sodexomyway.com/?" class="list-group-item"><center>Dining services</center></a>
+                              <a href="http://www.marist.edu/it/telecom/students.html" target="_blank" class="list-group-item"><center>Telephone Services</center></a>
+                              <a href="http://www.marist.edu/it/telecom/staff.html" target="_blank" class="list-group-item"><center>faculty services</center></a>
+                              <a href="https://maristdining.sodexomyway.com/?" target="_blank" class="list-group-item"><center>Dining services</center></a>
                             </div>
 
                             <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-0 col-lg-offset-0">
