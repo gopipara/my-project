@@ -16,6 +16,21 @@ if(!isset($_SESSION['user']))
 }
 
 
+  $fid = '';
+  if (isset($_POST["fID"]))
+  {
+  $fid = $_POST["fID"];
+
+
+   }
+
+   $fln = '';
+  if (isset($_POST["fLastName"]))
+  {
+  $fln = $_POST["fLastName"];
+}
+
+
 
 
 ?>
@@ -69,7 +84,7 @@ if(!isset($_SESSION['user']))
                         </li>
                         
                        <li>
-                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
@@ -90,39 +105,140 @@ if(!isset($_SESSION['user']))
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+
                             <form action="facultydetails.php" method="POST">
+
                             <legend>Current Faculty</legend>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             Search by ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fID" id="fID" class="form-control" value=""   title="">
-                            <span class="text-center">( OR )</span>
+                            <input type="text" name="fID" id="inputSID" class="form-control" value="<?php echo $fid; ?>"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             Search by Last Name :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLastName" id="fLastName" class="form-control" value=""   title="">
+                            <input type="text" name="fLastName" id="fLastName" class="form-control" value="<?php echo $fln; ?>"  title="">
                             </div>
                             <p>
                             &nbsp;
                             </p>
 
-                             <input  class="btn btn-primary col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
+                             <input  class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
                             </form>
+                             <legend>details</legend>
 
 
 
                             
+                               <div class="table-responsive">
+                             <?php
+                             if($fid != ''){
+                                                    $sqli = 'SELECT * FROM faculty WHERE f_id = '.$fid;
+                                                    echo $sqli;
+                           //mysql_select_db('maristcollege');
+                           $result = mysqli_query($link,$sqli);
+                           
+                           if(! $result )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+
+                           echo "HELLO";
+                           
+                          echo "<table class='table table-hover'>
+                        <tr>
+                        <th>Faculty ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Phone #</th>
+                        <th>Email</th>
+                        <th>Address</th>
 
 
+                        </tr>";
+                         
+                        while($row = mysqli_fetch_array($result))
+                          {
+                          echo "<tr>";
+                          echo "<td>" . $row['f_id'] . "</td>";
+                          echo "<td>" . $row['f_firstName'] . "</td>";
+                          echo "<td>" . $row['f_lastName'] . "</td>";
+                          echo "<td>" . $row['f_dob'] . "</td>";
+                          echo "<td>" . $row['f_gender'] . "</td>";
+                          echo "<td>" . $row['f_phone'] . "</td>";
+                          echo "<td>" . $row['f_email'] . "</td>";
+                          echo "<td style = 'width:130px', 'overflow:auto'; >" . $row['f_address'] . "</td>";
+                         
+                          echo "</tr>";
+                          }
+                        echo "</table>";
+                           
+                          
+                         }
+                           ?>
+                           </div>
 
 
-                            <legend>Regester a New Faculty</legend>
+                            <div class="table-responsive">
+                             <?php
+                             echo $_POST["fLastName"];
+                             if($fln != ''){
+                                                    $sql = 'SELECT * FROM faculty WHERE f_lastName LIKE "%'.$fln.'%"';
+                                                    echo $sql;
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
 
-                         <center>   <a href="facultyprofile.php" class="btn btn-primary">Create Faculty Profile      </a></center>
+                           
+                           
+                          echo "<table class='table table-hover'>
+                        <tr>
+                        <th>Faculty ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Date of Birth</th>
+                        <th>Gender</th>
+                        <th>Phone #</th>
+                        <th>Email</th>
+                        <th>Address</th>
+
+
+                        </tr>";
+                         
+                        while($row = mysqli_fetch_array($retval))
+                          {
+                          echo "<tr>";
+                          echo "<td>" . $row['f_id'] . "</td>";
+                          echo "<td>" . $row['f_firstName'] . "</td>";
+                          echo "<td>" . $row['f_lastName'] . "</td>";
+                          echo "<td>" . $row['f_dob'] . "</td>";
+                          echo "<td>" . $row['f_gender'] . "</td>";
+                          echo "<td>" . $row['f_phone'] . "</td>";
+                          echo "<td>" . $row['f_email'] . "</td>";
+                          echo "<td style = 'width:130px', 'overflow:auto'; >" . $row['f_address'] . "</td>";
+                         
+                          echo "</tr>";
+                          }
+                        echo "</table>";
+                           
+                           mysqli_close($link);
+                         }
+                           ?>
+                           </div>
+                             
+                
+
+                            
+
                             
                         </div>
                             <!-- end Here -->

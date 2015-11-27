@@ -14,8 +14,10 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
+
+
+
 ?>
 
 
@@ -76,7 +78,7 @@ $userRow=mysqli_fetch_array($res);
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
@@ -91,31 +93,38 @@ $userRow=mysqli_fetch_array($res);
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+
+
                             <legend>Current Students</legend>
+
+                            <form action="studentdetails.php" method="POST">
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             Search by ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sID" id="sID" class="form-control" value=""   title="">
+                            
+                            <span class="text-center">( OR )</span>
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             Search by Last Name :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sLastName" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sLastName" id="sLastName" class="form-control" value=""   title="">
                             </div>
                             <p>
                             &nbsp;
                             </p>
 
-                             <button type="button" class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 ">Search</button>
+                             <input  class="btn btn-primary col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
+                             </form>
 
 
 
                             <legend>Regester a New Student</legend>
 
-                           <a href="studentprofile.php"> <center><button type="button" class="btn btn-default">Create Student Profile</button></center></a>
+                           <a href="studentprofile.php"> <center><button type="button" class="btn btn-primary">Create Student Profile</button></center></a>
 
                             
                         </div>

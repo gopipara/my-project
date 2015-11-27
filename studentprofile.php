@@ -14,8 +14,46 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
+
+if(isset($_POST['submit']))
+{
+   echo "inwerting";
+ $sid = mysqli_real_escape_string($link,$_POST['sid']);
+ $sfname = mysqli_real_escape_string($link,$_POST['sfname']);
+ $slname = mysqli_real_escape_string($link,$_POST['slname']);
+ $sdob = mysqli_real_escape_string($link,$_POST['sdob']);
+ $sgender = mysqli_real_escape_string($link,$_POST['sgender']);
+ $sphone = mysqli_real_escape_string($link,$_POST['sphone']);
+ $semail = mysqli_real_escape_string($link,$_POST['semail']);
+ $saddress = mysqli_real_escape_string($link,$_POST['saddress']);
+ $scname = mysqli_real_escape_string($link,$_POST['scname']);
+ $scphone = mysqli_real_escape_string($link,$_POST['scphone']);
+ $scaddress = mysqli_real_escape_string($link,$_POST['scaddress']);
+ $sLastSchool = mysqli_real_escape_string($link,$_POST['sLastSchool']);
+ $sdegree = mysqli_real_escape_string($link,$_POST['sdegree']);
+ $sgrade = mysqli_real_escape_string($link,$_POST['sgrade']);
+ 
+
+
+ if(mysqli_query($link,"INSERT INTO student(stu_id,stu_Fname,stu_Lname,stu_dob,stu_gender,stu_phone,stu_email,stu_address,stu_EmerName,stu_EmerPhone,stu_EmerAddress,stu_LastSchool,stu_degreeAchieved,stu_PreGrade) VALUES('$sid','$sfname','$slname','$sdob','$sgender','$sphone','$semail','$saddress','$scname','$scphone','$scaddress','$sLastSchool','$sdegree','$sgrade')"))
+ {
+  ?>
+        <script>alert('successfully registered ');</script>
+        <?php
+        header("location: student.php");
+ }
+ else
+ {
+  ?>
+        <script>alert('error while registering you...');</script>
+        <?php
+ }
+}
+
+
+
+
 ?>
 
 
@@ -75,7 +113,7 @@ $userRow=mysqli_fetch_array($res);
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
@@ -91,11 +129,13 @@ $userRow=mysqli_fetch_array($res);
                               <div class="container">
                             <!-- Write Here -->
 
+                            <form method="post">
+
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             STUDENT ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sid" id="sid" class="form-control" value="" required title="">
                             </div>
 
 
@@ -103,14 +143,14 @@ $userRow=mysqli_fetch_array($res);
                             STUDENT FIRST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sFName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sfname" id="sfname" class="form-control" value="" required  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             STUDENT LAST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sLName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="slname" id="slname" class="form-control" value="" required  title="">
                             </div>
 
 
@@ -118,7 +158,7 @@ $userRow=mysqli_fetch_array($res);
                             DATE OF BIRTH :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="date" name="sDob" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="date" name="sdob" id="sdob" class="form-control" value="" required  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
@@ -126,15 +166,15 @@ $userRow=mysqli_fetch_array($res);
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
                            
-                            <div class="radio">
+                            <div class="radio" >
                               <label>
-                                <input type="radio" name="gender" id="mGender" value="M" checked="checked">
+                                <input type="radio" name="sgender" id="sgender" value="M" checked="checked">
                                 Male
                               </label>
                               </div>
                                <div class="radio">
                                <label>
-                                <input type="radio" name="gender" id="fGender" value="F">
+                                <input type="radio" name="sgender" id="sgender" value="F">
                                 Female
                               </label>
                             </div>
@@ -144,21 +184,21 @@ $userRow=mysqli_fetch_array($res);
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sPhone" id="inputSName" class="form-control" value="" required="required" pattern="[789][0-9]{9}" title="">
+                            <input type="text" name="sphone" id="sphone" class="form-control" value=""  required title="">
                             </div>
 
                              <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             EMAIL-ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="email" name="sEID" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="email" name="semail" id="semail" class="form-control" value="" required  title="">
                             </div>
                             
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             ADDRESS :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sAdd" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="saddress" id="saddress" class="form-control" value="" required  title="">
                             </div>
 
                             <legend>EMERGENCY CONTACT PERSON</legend>
@@ -167,21 +207,21 @@ $userRow=mysqli_fetch_array($res);
                             CONTACT NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="cName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="scname" id="scname" class="form-control" value="" required  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="number" name="cP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="number" name="scphone" id="scphone" class="form-control" value="" required  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             ADDRESS  :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="cAdd" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="scaddress" id="scaddress" class="form-control" value=""required   title="">
                             </div>
 
                             <legend>EDUCATION DETAILS</legend>
@@ -190,30 +230,32 @@ $userRow=mysqli_fetch_array($res);
                             LAST SCHOOL :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sLastSchool" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sLastSchool" id="sLastSchool" class="form-control" value=""  required title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             DEGREE ACHIEVED :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sDegAch" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sdegree" id="sdegree" class="form-control" value="" required  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             GRADE :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="sGrade" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="sgrade" id="sgrade" class="form-control" value="" required  title="">
                             </div>
 
                             <legend></legend>
 
                             <div class="btn-group col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-5 col-lg-offset-5">
-                            	<button type="button" class="btn btn-default">Submit</button>
+                            	<a><button type="submit" id="submit" name="submit" class="btn btn-lg btn-primary">submit</button></a>
                             	
-                            	<button type="button" class="btn btn-default">Clear</button>
+                            	<a href="studentprofile.php"><button type="button" class="btn btn-default btn-lg">Clear</button></a>
                             </div>
+
+                            </form>
 
 
 

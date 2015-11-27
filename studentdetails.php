@@ -14,8 +14,24 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
+  $sid = '';
+  if (isset($_POST["sID"]))
+  {
+  $sid = $_POST["sID"];
+
+
+   }
+
+   $sln = '';
+  if (isset($_POST["sLastName"]))
+  {
+  $sln = $_POST["sLastName"];
+}
+
+
+
+
 ?>
 
 
@@ -62,20 +78,20 @@ $userRow=mysqli_fetch_array($res);
                           <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.html"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
@@ -90,15 +106,115 @@ $userRow=mysqli_fetch_array($res);
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+                            
+
+                             <form action="studentdetails.php" method="POST">
+
+                            <legend>Current Student</legend>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            Search by ID :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sID" id="sID" class="form-control" value="<?php echo $sid; ?>"  title="">
+
+                            <span class="text-center">( OR )</span>
+                            
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            Search by Last Name :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sLastName" id="sLastName" class="form-control" value="<?php echo $sln; ?>"  title="">
+                            </div>
+                            <p>
+                            &nbsp;
+                            </p>
+
+                             <input  class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
+                            </form>
+
+
+
+
+
                             <legend>Profile Details</legend>
 
 
-                            <legend>Course Details</legend>
-                            <center><div class="btn-group-vertical">
-                            	<button type="button" class="btn btn-default">Courses Taken</button>
-                            	<button type="button" class="btn btn-default">Add/Drop course</button>
-                            	<button type="button" class="btn btn-default">Grade Upto</button>
-                            </div></center>
+                             <div class="table-responsive">
+                             <?php
+                             if($sid != '' or $sln !=''){
+                                                   
+                                if($sid != ''){
+                                                    $sql = 'SELECT * FROM student WHERE stu_id = '.$sid;
+                                                   // echo $sql;
+                                                  }
+                                else if($sln !='') {                     
+                            $sql = 'SELECT * FROM student WHERE stu_Lname LIKE "%'.$sln.'%"';
+                                                   // echo $sql;
+                                                  }
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+
+                           
+                           
+                          echo "<table class='table table-hover'>
+                        <tr>
+                        <th>Student ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>D.O.B</th>
+                        <th>Gender</th>
+                        <th>Phone #</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Emergency Contact </th>
+
+                        <th>Last School</th>
+                        
+
+
+                        </tr>";
+                         
+                        while($row = mysqli_fetch_array($retval))
+                          {
+                          echo "<tr>";
+                        echo "<td>" . $row['stu_id'] . "</td>";
+                          echo "<td>" . $row['stu_Fname'] . "</td>";
+                          echo "<td>" . $row['stu_Lname'] . "</td>";
+                          echo "<td>" . $row['stu_dob'] . "</td>";
+                          echo "<td>" . $row['stu_gender'] . "</td>";
+                          echo "<td>" . $row['stu_phone'] . "</td>";
+                          echo "<td>" . $row['stu_email'] . "</td>";
+                          echo "<td>" . $row['stu_address'] . "</td>";
+
+
+                          echo "<td>" . $row['stu_EmerName'] ."<br>". $row['stu_EmerPhone'] ."<br>" . $row['stu_EmerAddress'] . "</td>";
+
+
+                          echo "<td>" . $row['stu_LastSchool'] ."<br>" . $row['stu_degreeAchieved'] . "<br>GPA: " . $row['stu_PreGrade'] ."</td>";
+                          
+                         
+                          echo "</tr>";
+                          }
+                        echo "</table>";
+                           
+                           mysqli_close($link);
+                         }
+                           ?>
+                           </div>
+
+
+
+
+
+
+                           
 
                             
                         </div>

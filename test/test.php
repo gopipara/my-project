@@ -1,10 +1,6 @@
-<?php
+  <?php
 session_start();
-if(isset($_SESSION['user'])!="")
-{
- header("Location: login.php");
-}
-
+//include_once 'js/dbconnect.php';
 
 $link = mysqli_connect("localhost", "root", "", "maristcollege");
 
@@ -13,38 +9,21 @@ if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
 }
-//include_once 'js/connection.php';
 
-if(isset($_POST['submit']) && !isset($_SESSION['user']))
+if(!isset($_SESSION['user']))
 {
- $uname = mysqli_real_escape_string($link,$_POST['name']);
- $upass = md5(mysqli_real_escape_string($link,$_POST['password']));
- $qry = mysqli_query($link,"SELECT u_id,u_name,password from users where u_name = '$uname' ");
- $row=mysqli_fetch_array($qry);
-
- if($row['password']==$upass)
- {
-
-  $_SESSION['user'] = $row['u_id'];
-  $_SESSION['userName'] = $row['u_name'];
-//echo $_SESSION['user'];
- header("Location: home.php");
- }
- else
- {
-  ?>
-        <script>alert('incorrect details...');</script>
-        <?php
- }
+ header("Location: login.php");
 }
-?>
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
 
-
+   
+   ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login</title>
+        <title>Demo</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -52,7 +31,7 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="./css/custom.css">
+      <link rel="stylesheet" type="text/css" href="../css/custom.css">
         
     </head>
     <body>
@@ -77,16 +56,16 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="login.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="login.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="login.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="login.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
                         </li>
                         
                        <li>
@@ -94,14 +73,14 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
                        </li>
                      
                         </ul>
-
-                        <ul class="nav navbar-nav pull-right" >
-                        
+                      <ul class="nav navbar-nav pull-right" >
+                        <li>
+                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                       </li>
                        <li>
-                         <a  href="register.php?register" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Sign up</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
-                   
                     </div>
                 </div>
                 <!-- /top nav -->
@@ -110,25 +89,44 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
                             <!-- content -->                      
                             <div class="row" id="content">
                               <div class="container">
+
+
                             <!-- Write Here -->
-                            <form method="post">
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-md-offset-4">
-                            <legend>Login</legend>
-                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                           			 <label>User Name</label>
-                            		<input type="text" name="name" id="inputName" class="form-control" required="required"  title="">
-                            	</div>
-                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                               <label>Password</label>
-                            		<input type="password" name="password" id="password"   class="form-control" required="required" title="">
-                            	</div>
-              								
-                            
-            								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            									<button type="submit" id="sign_up" name="submit" class="btn btn-lg btn-primary">Login</button>		
-            								</div>	
-                            </div>
-                            </form>
+                            <?php
+                            $sql = 'SELECT f_id,f_firstName,f_lastName FROM faculty WHERE f_id = 20001 ';
+   //mysql_select_db('maristcollege');
+   $retval = mysqli_query($link,$sql);
+   
+   if(! $retval )
+   {
+      die('Could not get data: ' . mysql_error());
+   }
+
+   echo "HELLO";
+   
+  echo "<table border='1'>
+<tr>
+<th>Id</th>
+<th>fname</th>
+<th>lname</th>
+
+</tr>";
+ 
+while($row = mysqli_fetch_array($retval))
+  {
+  echo "<tr>";
+  echo "<td>" . $row['f_id'] . "</td>";
+  echo "<td>" . $row['f_firstName'] . "</td>";
+  echo "<td>" . $row['f_lastName'] . "</td>";
+ 
+  echo "</tr>";
+  }
+echo "</table>";
+   
+   mysqli_close($link);
+   ?>
+
+
 
                             
                         </div>
@@ -143,7 +141,7 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
 
      <div class="row text-center" id="footer" >    
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
-                              	Marist
+                                Marist
                              </div>
                              <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
                                <ul class ="footer-links">
@@ -153,8 +151,10 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
                                </ul>
                              </div>
   
-                        </div>         
+                        </div>   
+      
     
     </body>
     
 </html>
+  

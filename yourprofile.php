@@ -14,15 +14,59 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
+ if (isset($_POST["passwordChange"])){
+	$sql = 'SELECT password FROM users where u_id ='. $_SESSION['user'];
+
+	 $retval = mysqli_query($link,$sql);
+                           
+       if(! $retval )
+       {
+          die('Could not get data: ' . mysql_error());
+       }
+
+	    $row = mysqli_fetch_array($retval);
+
+	    $currentPwd = md5(mysqli_real_escape_string($link,$_POST['current']));
+
+	    if($currentPwd === $row['password']){
+	    	$newPwd = md5(mysqli_real_escape_string($link,$_POST['newPassword']));
+	    	$sql = "UPDATE USERS SET PASSWORD='".$newPwd."' where u_id=". $_SESSION['user'];
+	    	if(mysqli_query($link,$sql))
+				 {
+
+          ?>
+
+           <script>alert('Password changed ');</script>
+
+          <?php
+				 }else{
+          ?>
+           <script>alert('Error occured! please try again');</script>
+          <?php
+				 }
+
+
+	    }else{
+        ?>
+          <script>alert('Incorrect Password');</script>
+
+        <?php
+	    }
+
+
+}
+  
+
+
 ?>
+
 
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Museum studies at marist</title>
+        <title>Your Profile at marist</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -58,13 +102,13 @@ $userRow=mysqli_fetch_array($res);
                           <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
@@ -90,55 +134,70 @@ $userRow=mysqli_fetch_array($res);
                               <div class="container">
                             <!-- Write Here -->
 
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                             <legend>Majors Offering</legend>
-                              <div class="list-group">
-                                <a href="majors.php" class="list-group-item ">
-                                  MS in Computer Science
-                                </a>
-                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
-                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
-                                <a href="museum.php" class="list-group-item active">Master's in Museum Studies</a>
-                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
-                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
-                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
-                              </div>
-                            </div>
 
-                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                              
-
-                              <h2>MASTER OF ARTS IN MUSEUM STUDIES </h2>
-
-                              <p>The M.A. in Museum Studies is an interdisciplinary advanced degree program which aims to provide students with an understanding of how museums operate within their social and cultural contexts. Drawing on faculty from the U.S., U.K. and continental Europe, courses are taught using a variety of innovative methods, yet they share two fundamental core principles which are embedded in the program’s philosophy: 1) museums’ engagement with the public is paramount and 2) museums vary greatly across the globe and therefore must be studied from an international comparative perspective.</p>
-
-                              <h3>Course Requirements</h3>
-                              <p>Candidates for the Master of Arts in Museum studies must complete the following: </p>
-
-
-
-                              <ol>
-                                  <li>Museums and the Public I: People and Ideas </li>
-                                  <li>Museums, Galleries, and the History of Collecting</li>
-                                  <li>Museum Development, Management, and Leadership</li>
-                                  <li> Art and Objects in Museums and in Context </li>
-                                  <li>Research Methods I: Methodology and Resources</li>
-                                  <li>Museums and the Public II: Objects and Audience </li>
-                                  <li>Museum Ethics and the Law </li>
-                                  <li> Research Methods II: Thesis Proposal</li>
-                                  <li>Internship</li>
-                                  <li>Thesis</li>
-                              </ol>
-                          
-                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
-
-                              <b>Onkar P. Sharma, Ph.D.
-                              (845) 575-3000, ext. 3610 or 2523
-                              onkar.sharma@marist.edu </b>
-
-
-                            </div>
+                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
+                             <div class="table-responsive">
+                             <?php
+                       
+                            if(isset ($_SESSION['user']) ){
+                                                    $sql = 'SELECT * FROM users where u_id ='. $_SESSION['user'];
+                                                    
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+                           
+                          echo "<table class='table table-hover'>
+                        <tr>
+                        <th>user ID</th>
+                        <th>user Name</th>
+                        <th>Email</th>
                         
+                        
+                        </tr>";
+                         
+                        while($row = mysqli_fetch_array($retval))
+                          {
+                          echo "<tr>";
+                          echo "<td>" . $row['u_id'] . "</td>";
+                           echo "<td>" . $row['u_name'] . "</td>";
+                            echo "<td>" . $row['email'] . "</td>";
+                            
+
+                          
+                         
+                          echo "</tr>";
+                          }
+                        echo "</table>";
+                           
+                          // mysqli_close($link);
+                        }
+                           ?>
+                           </div>
+
+                           <form action="" method="POST" role="form">
+                           	<legend>Change Password</legend>
+                           
+                           	<div class="form-group">
+                           		<label for="">Current Password</label>
+                           		<input type="text" class="form-control" id="current" name="current" placeholder="Input field">
+                           	</div>
+                           	<div class="form-group">
+                           		<label for="">New Password</label>
+                           		<input type="text" class="form-control" id="newPassword" name="newPassword" placeholder="Input field">
+                           	</div>
+                           	<div class="form-group">
+                           		<label for="">Confirm Password</label>
+                           		<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Input field">
+                           	</div>
+                           
+                           	
+                           
+                           	<button type="submit" name="passwordChange" class="btn btn-primary">Submit</button>
+                           </form>
                             
                         </div>
                             <!-- end Here -->

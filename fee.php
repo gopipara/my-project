@@ -14,15 +14,73 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
+if(isset($_POST['submit']))
+{
+ $stuid = mysqli_real_escape_string($link,$_POST['sname']);
+
+$payedAmount = 0;
+$sql = 'SELECT amount from fee where stu_id ="'.$stuid.'"';
+$retval = mysqli_query($link,$sql);
+$row = mysqli_fetch_array($retval);
+
+if($row['amount']){
+	$payedAmount = $row['amount'];
+}
+
+console("ayedAmount ");
+console($payedAmount);
+$amount = mysqli_real_escape_string($link,$_POST['amount']);
+
+if($payedAmount <= 0 )
+	{
+		console("inserting");		 
+
+		 if(mysqli_query($link,"INSERT INTO fee(stu_id,amount) VALUES('$stuid',$amount)"))
+		 {
+		 echo "Payment Success";
+		 }
+		 else
+		 {
+		 	echo "Error while paying...";
+		 }
+
+}else{
+			$updatedAmt = (float)( $payedAmount + $amount);
+			console('$updatedAmt '.$updatedAmt);
+			console('$stuid '.$stuid);
+			
+			$sql = "UPDATE fee SET amount=".$updatedAmt." WHERE stu_id='".$stuid."'";
+			//$sql = "UPDATE USERS SET PASSWORD='".$newPwd."' where u_id=". $_SESSION['user'];
+
+			if(mysqli_query($link,$sql))
+				 {
+				 	console("updated");
+				 }
+
+		}
+
+	}
+
+
+ function console( $data ) {
+
+    if ( is_array( $data ) )
+        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+    else
+        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+
+    echo $output;
+}
+
 ?>
+
 
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Museum studies at marist</title>
+        <title>Demo</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -58,13 +116,13 @@ $userRow=mysqli_fetch_array($res);
                           <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
@@ -74,7 +132,7 @@ $userRow=mysqli_fetch_array($res);
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
@@ -88,57 +146,48 @@ $userRow=mysqli_fetch_array($res);
                             <!-- content -->                      
                             <div class="row" id="content">
                               <div class="container">
-                            <!-- Write Here -->
+                            <!-- Write Here --><form action="" method="POST" role="form">
+                            	<legend>Payment</legend>
+                            
+                            	<div class="form-group">
+                            	<select name="sname" id="sname" class="form-control">
+                            		<option value="">-- Select One --</option>
+                            		 	<?php
+                            	
+                            	$sql = 'SELECT stu_id,stu_Fname,stu_Lname from student';
+                            	
+                       
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+                           
+                             while($row = mysqli_fetch_array($retval)){
+                             	 	
+                             	echo "<option value=".$row['stu_id'].'>'.$row['stu_id'].' - '.$row['stu_Fname'].' '.$row['stu_Lname'].'</option>';
 
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                             <legend>Majors Offering</legend>
-                              <div class="list-group">
-                                <a href="majors.php" class="list-group-item ">
-                                  MS in Computer Science
-                                </a>
-                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
-                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
-                                <a href="museum.php" class="list-group-item active">Master's in Museum Studies</a>
-                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
-                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
-                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
-                              </div>
-                            </div>
-
-                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                              
-
-                              <h2>MASTER OF ARTS IN MUSEUM STUDIES </h2>
-
-                              <p>The M.A. in Museum Studies is an interdisciplinary advanced degree program which aims to provide students with an understanding of how museums operate within their social and cultural contexts. Drawing on faculty from the U.S., U.K. and continental Europe, courses are taught using a variety of innovative methods, yet they share two fundamental core principles which are embedded in the program’s philosophy: 1) museums’ engagement with the public is paramount and 2) museums vary greatly across the globe and therefore must be studied from an international comparative perspective.</p>
-
-                              <h3>Course Requirements</h3>
-                              <p>Candidates for the Master of Arts in Museum studies must complete the following: </p>
+                             }
 
 
-
-                              <ol>
-                                  <li>Museums and the Public I: People and Ideas </li>
-                                  <li>Museums, Galleries, and the History of Collecting</li>
-                                  <li>Museum Development, Management, and Leadership</li>
-                                  <li> Art and Objects in Museums and in Context </li>
-                                  <li>Research Methods I: Methodology and Resources</li>
-                                  <li>Museums and the Public II: Objects and Audience </li>
-                                  <li>Museum Ethics and the Law </li>
-                                  <li> Research Methods II: Thesis Proposal</li>
-                                  <li>Internship</li>
-                                  <li>Thesis</li>
-                              </ol>
-                          
-                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
-
-                              <b>Onkar P. Sharma, Ph.D.
-                              (845) 575-3000, ext. 3610 or 2523
-                              onkar.sharma@marist.edu </b>
+                            	?>
 
 
-                            </div>
-                        
+
+                            	</select>
+
+                            		<label for="">amount</label>
+                            		<input type="text" class="form-control" id="amount" name="amount" placeholder="Input field">
+                            	</div>
+                            
+                            	
+                            
+                            	<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                            </form>
+                            
+
                             
                         </div>
                             <!-- end Here -->

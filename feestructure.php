@@ -14,15 +14,26 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
+  $mid = '';
+  if (isset($_POST["mID"]))
+  {
+  $mid = $_POST["mID"];
+
+
+   }
+
+
+
+
 ?>
+
 
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Museum studies at marist</title>
+        <title>feestructure at marist</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -58,7 +69,7 @@ $userRow=mysqli_fetch_array($res);
                           <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
@@ -68,7 +79,7 @@ $userRow=mysqli_fetch_array($res);
                         </li>
                         
                        <li>
-                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
@@ -90,55 +101,104 @@ $userRow=mysqli_fetch_array($res);
                               <div class="container">
                             <!-- Write Here -->
 
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                             <legend>Majors Offering</legend>
-                              <div class="list-group">
-                                <a href="majors.php" class="list-group-item ">
-                                  MS in Computer Science
-                                </a>
-                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
-                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
-                                <a href="museum.php" class="list-group-item active">Master's in Museum Studies</a>
-                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
-                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
-                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
-                              </div>
+                             <form action="feestructure.php" method="POST">
+                            <legend>search major</legend>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            Search by major id :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <select name="mID" id="mID" class="form-control">
+                            	<option value="">-- Select One --</option>
+
+                            	<?php
+                            	
+                            	$sql = 'SELECT m_id,m_name from majors';
+                            	
+                            	
+
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+                           
+                             while($row = mysqli_fetch_array($retval)){
+                             	echo "<option value=".$row['m_id'].'">'.$row['m_id'].' - '.$row['m_name'].'</option>';
+
+                             }
+
+
+                            	?>
+
+                            </select>
                             </div>
 
-                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                              
+                            
+                            <p>
+                            &nbsp;
+                            </p>
 
-                              <h2>MASTER OF ARTS IN MUSEUM STUDIES </h2>
+                             <input  class="btn btn-primary col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
+                            </form>
 
-                              <p>The M.A. in Museum Studies is an interdisciplinary advanced degree program which aims to provide students with an understanding of how museums operate within their social and cultural contexts. Drawing on faculty from the U.S., U.K. and continental Europe, courses are taught using a variety of innovative methods, yet they share two fundamental core principles which are embedded in the program’s philosophy: 1) museums’ engagement with the public is paramount and 2) museums vary greatly across the globe and therefore must be studied from an international comparative perspective.</p>
-
-                              <h3>Course Requirements</h3>
-                              <p>Candidates for the Master of Arts in Museum studies must complete the following: </p>
-
-
-
-                              <ol>
-                                  <li>Museums and the Public I: People and Ideas </li>
-                                  <li>Museums, Galleries, and the History of Collecting</li>
-                                  <li>Museum Development, Management, and Leadership</li>
-                                  <li> Art and Objects in Museums and in Context </li>
-                                  <li>Research Methods I: Methodology and Resources</li>
-                                  <li>Museums and the Public II: Objects and Audience </li>
-                                  <li>Museum Ethics and the Law </li>
-                                  <li> Research Methods II: Thesis Proposal</li>
-                                  <li>Internship</li>
-                                  <li>Thesis</li>
-                              </ol>
-                          
-                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
-
-                              <b>Onkar P. Sharma, Ph.D.
-                              (845) 575-3000, ext. 3610 or 2523
-                              onkar.sharma@marist.edu </b>
+                            <legend> Fee details by major </legend>
 
 
-                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 col-md-offset-1 col-lg-offset-1">
+                             <div class="table-responsive">
+                             <?php
+                       
+                            if($mid != ''){
+                                                    $sql = 'SELECT m.m_id as mid,c.c_id as cid, c.c_credits as credits,m.m_amtperCredit as amount,c.c_credits*m.m_amtperCredit as total  FROM majorcourse as mc,majors as m,courses as c WHERE mc.m_id=m.m_id and mc.c_id=c.c_id and m.m_id="'.$mid;
+                                                    
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+                           
+                          echo "<table class='table table-hover'>
+                        <tr>
+                        <th>MAJOR ID</th>
+                        <th>COURSE ID</th>
+                        <th>CREDITS/COURSE</th>
+                        <th>AMOUNT/CREDIT</th>
+                        <th>TOTAL AMOUNT</th>
                         
+                        </tr>";
+                         
+                        while($row = mysqli_fetch_array($retval))
+                          {
+                          echo "<tr>";
+                          echo "<td>" . $row['mid'] . "</td>";
+                           echo "<td>" . $row['cid'] . "</td>";
+                            echo "<td>" . $row['credits'] . "</td>";
+                             echo "<td>$" . $row['amount'] . "</td>";
+                              echo "<td>$" . $row['total'] . "</td>";
+
+                          
+                         
+                          echo "</tr>";
+                          }
+                        echo "</table>";
+                           
+                          // mysqli_close($link);
+                        }
+                           ?>
+                           </div>
+
+
+
+
+
+                            	
+                            </div>
+                            
+
                             
                         </div>
                             <!-- end Here -->

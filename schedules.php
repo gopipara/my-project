@@ -14,21 +14,26 @@ if(!isset($_SESSION['user']))
 {
  header("Location: login.php");
 }
-$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
-$userRow=mysqli_fetch_array($res);
+
 ?>
+
+
 
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Museum studies at marist</title>
+        <title>schedules.marist</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script class="cssdesk" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+		<script class="cssdesk" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js" type="text/javascript"></script>
+		<script class="cssdesk" src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/js/bootstrap.min.js" type="text/javascript"></script>
+		<script class="cssdesk" src="//arshaw.com/js/fullcalendar-1.5.3/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
       <link rel="stylesheet" type="text/css" href="./css/custom.css">
         
@@ -58,13 +63,13 @@ $userRow=mysqli_fetch_array($res);
                           <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
@@ -89,56 +94,93 @@ $userRow=mysqli_fetch_array($res);
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+                            <div class="container">
 
-                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                             <legend>Majors Offering</legend>
-                              <div class="list-group">
-                                <a href="majors.php" class="list-group-item ">
-                                  MS in Computer Science
-                                </a>
-                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
-                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
-                                <a href="museum.php" class="list-group-item active">Master's in Museum Studies</a>
-                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
-                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
-                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
-                              </div>
-                            </div>
+							                            	<?php
+							$monthNames = Array("January", "February", "March", "April", "May", "June", "July", 
+							"August", "September", "October", "November", "December");
+							?>
 
-                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                              
+							
+							<?php
+							if (!isset($_REQUEST["month"])) $_REQUEST["month"] = date("n");
+							if (!isset($_REQUEST["year"])) $_REQUEST["year"] = date("Y");
+							?>
 
-                              <h2>MASTER OF ARTS IN MUSEUM STUDIES </h2>
+							<?php
+							$cMonth = $_REQUEST["month"];
+							$cYear = $_REQUEST["year"];
+							 
+							$prev_year = $cYear;
+							$next_year = $cYear;
+							$prev_month = $cMonth-1;
+							$next_month = $cMonth+1;
+							 
+							if ($prev_month == 0 ) {
+							    $prev_month = 12;
+							    $prev_year = $cYear - 1;
+							}
+							if ($next_month == 13 ) {
+							    $next_month = 1;
+							    $next_year = $cYear + 1;
+							}
+							?>
 
-                              <p>The M.A. in Museum Studies is an interdisciplinary advanced degree program which aims to provide students with an understanding of how museums operate within their social and cultural contexts. Drawing on faculty from the U.S., U.K. and continental Europe, courses are taught using a variety of innovative methods, yet they share two fundamental core principles which are embedded in the program’s philosophy: 1) museums’ engagement with the public is paramount and 2) museums vary greatly across the globe and therefore must be studied from an international comparative perspective.</p>
+							<table width="500px">
+							<tr align="center">
+							<td bgcolor="#B01B1B" style="color:#FFFFFF">
+							<table width="500px" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+							<td width="250px" align="left">  <a href="<?php echo $_SERVER["PHP_SELF"] . "?month=". $prev_month . "&year=" . $prev_year; ?>" style="color:#FFFFFF">Previous</a></td>
+							<td width="250px" align="right"><a href="<?php echo $_SERVER["PHP_SELF"] . "?month=". $next_month . "&year=" . $next_year; ?>" style="color:#FFFFFF">Next</a>  </td>
+							</tr>
+							</table>
+							</td>
+							</tr>
+							<tr>
+							<td align="center">
+							<table width="500px" border="0" cellpadding="2" cellspacing="2">
+							<tr align="center">
+							<td colspan="7" bgcolor="#B01B1B" style="color:#FFFFFF"><strong><?php echo $monthNames[$cMonth-1].' '.$cYear; ?></strong></td>
+							</tr>
+							<tr>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>S</strong></td>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>M</strong></td>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>T</strong></td>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>W</strong></td>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>T</strong></td>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>F</strong></td>
+							<td align="center" bgcolor="#B01B1B" style="color:#FFFFFF"><strong>S</strong></td>
+							</tr>
 
-                              <h3>Course Requirements</h3>
-                              <p>Candidates for the Master of Arts in Museum studies must complete the following: </p>
+
+							<?php 
+							$timestamp = mktime(0,0,0,$cMonth,1,$cYear);
+							$maxday = date("t",$timestamp);
+							$thismonth = getdate ($timestamp);
+							$startday = $thismonth['wday'];
+							for ($i=0; $i<($maxday+$startday); $i++) {
+							    if(($i % 7) == 0 ) echo "<tr>n";
+							    if($i < $startday) echo "<td></td>n";
+							    else echo "<td align='center' valign='middle' height='100px'>". ($i - $startday + 1) . "</td>n";
+							    if(($i % 7) == 6 ) echo "</tr>n";
+							}
+							?>
+
+							</table>
+							</td>
+							</tr>
+							</table>
+		
 
 
 
-                              <ol>
-                                  <li>Museums and the Public I: People and Ideas </li>
-                                  <li>Museums, Galleries, and the History of Collecting</li>
-                                  <li>Museum Development, Management, and Leadership</li>
-                                  <li> Art and Objects in Museums and in Context </li>
-                                  <li>Research Methods I: Methodology and Resources</li>
-                                  <li>Museums and the Public II: Objects and Audience </li>
-                                  <li>Museum Ethics and the Law </li>
-                                  <li> Research Methods II: Thesis Proposal</li>
-                                  <li>Internship</li>
-                                  <li>Thesis</li>
-                              </ol>
-                          
-                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
-
-                              <b>Onkar P. Sharma, Ph.D.
-                              (845) 575-3000, ext. 3610 or 2523
-                              onkar.sharma@marist.edu </b>
 
 
-                            </div>
-                        
+
+
+                            
+
                             
                         </div>
                             <!-- end Here -->

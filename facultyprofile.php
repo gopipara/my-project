@@ -22,8 +22,8 @@ $userRow=mysqli_fetch_array($res);
 if(isset($_POST['submit']))
 {
  $fid = mysqli_real_escape_string($link,$_POST['id']);
- $ffname = mysqli_real_escape_string($link,$_POST['name']);
- $flname = mysqli_real_escape_string($link,$_POST['name']);
+ $ffname = mysqli_real_escape_string($link,$_POST['fname']);
+ $flname = mysqli_real_escape_string($link,$_POST['lname']);
  $fdob = mysqli_real_escape_string($link,$_POST['date']);
  $fgender = mysqli_real_escape_string($link,$_POST['gender']);
  $fphone = mysqli_real_escape_string($link,$_POST['phone']);
@@ -36,6 +36,7 @@ if(isset($_POST['submit']))
   ?>
         <script>alert('successfully registered ');</script>
         <?php
+        header("location: faculty.php");
  }
  else
  {
@@ -107,7 +108,7 @@ if(isset($_POST['submit']))
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
@@ -122,11 +123,15 @@ if(isset($_POST['submit']))
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-md-offset-1 col-lg-offset-1">
+                            <legend>Faculty Registration Process</legend>
+                            </div>
+                            <form method="post">
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             FACULTY ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="number" name="id" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="number" name="id" id="inputSID" class="form-control" value="" required="required"  title="">
                             </div>
 
 
@@ -134,14 +139,14 @@ if(isset($_POST['submit']))
                             FACULTY FIRST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="name" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="fname" id="inputName" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             FACULTY LAST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="name" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="lname" id="inputName" class="form-control" value="" required="required"  title="">
                             </div>
 
                             
@@ -150,7 +155,7 @@ if(isset($_POST['submit']))
                             DATE OF BIRTH :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="date" name="date" id="inputDate" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="date" name="date" id="inputDate" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
@@ -176,29 +181,29 @@ if(isset($_POST['submit']))
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="number" name="phone" id="inputnumber" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="number" name="phone" id="inputnumber" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             EMAIL:
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="email" name="email" id="inputEmail" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="email" name="email" id="inputEmail" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             ADDRESS :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="address" id="inputAddress" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="address" id="inputAddress" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <legend></legend>
 
                             <div class="btn-group col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-5 col-lg-offset-5">
-                            	<button type="button" name="submit" class="btn btn-default">Submit</button>
+                            	<a><button type="submit" id="submit" name="submit" class="btn btn-lg btn-primary">submit</button></a>
                             	
-                            	<button type="button" class="btn btn-default">Clear</button>
+                            	<a href="facultyprofile.php"><button  type="button" class="btn btn-lg btn-primary">Clear</button></a>
                             </div>
 
 
