@@ -1,7 +1,22 @@
+<?php
+session_start();
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+//include_once 'js/connection.php';
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Register</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -34,29 +49,26 @@
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
-                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
-                       </li>
-                       <li>
-                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="login.php?login" class="clickable"><i class="glyphicon glyphicon-on"></i>&nbsp;Login</a>
                        </li>
                       </ul>
                     </div>
@@ -68,7 +80,44 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-md-offset-4">
+                            <legend>Your Profile:</legend>
+                            	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                           			 <label>User Name:</label>
+                            		<?php
+                                   $sql = 'SELECT u_name FROM users WHERE u_id = '.$_SESSION['user'];
+                                   $retval = mysqli_query($link,$sql);
+                                   while($row = mysqli_fetch_array($retval))
+                                   {
+                                   echo "<td>" . $row['u_name'] . "</td>";
+                                 }
+                                ?>
+                            	</div>
+              								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Email:</label>
+                              		<?php
+                                   $sql = 'SELECT email FROM users WHERE u_id = '.$_SESSION['user'];
+                                   $retval = mysqli_query($link,$sql);
+                                   while($row = mysqli_fetch_array($retval))
+                                   {
+                                   echo "<td>" . $row['email'] . "</td>";
+                                 }
+                                ?>
+                              	</div>
+              								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                               <label>Role:</label>
+              												<?php
+                                   $sql = 'SELECT role FROM users WHERE u_id = '.$_SESSION['user'];
+                                   $retval = mysqli_query($link,$sql);
+                                   while($row = mysqli_fetch_array($retval))
+                                   {
+                                   echo "<td>" . $row['role'] . "</td>";
+                                 }
+                                 mysqli_close($link);
+                                ?>				                            	
+              								</div>
                             
+                            </div>
 
                             
                         </div>
@@ -95,6 +144,13 @@
   
                         </div>   
     	
+
+      <script>
+        $('#password, #confirm_password').on('keyup', function () { if ($('#password').val() == $('#confirm_password').val()) { $('#message').html('Matching').css('color', 'green'); } else $('#message').html('Not Matching').css('color', 'red'); });
+
+      </script>
+
+      
     
     </body>
     

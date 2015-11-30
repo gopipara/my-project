@@ -211,13 +211,13 @@ $regCourseCnt = mysqli_num_rows($retval);
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
