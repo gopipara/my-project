@@ -1,7 +1,28 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Majors</title>
+        <title>MBA MARIST</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -37,26 +58,26 @@
                           <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -72,81 +93,48 @@
                             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                              <legend>Majors Offering</legend>
                               <div class="list-group">
-                                <a href="#" class="list-group-item active">
-                                  Computer Science
+                                <a href="majors.php" class="list-group-item ">
+                                  MS in Computer Science
                                 </a>
-                                <a href="#" class="list-group-item">Information Systems</a>
-                                <a href="#" class="list-group-item">Morbi leo risus</a>
-                                <a href="#" class="list-group-item">Accounting</a>
-                                <a href="#" class="list-group-item">Electronics</a>
-                                <a href="#" class="list-group-item">Communications</a>
-                                <a href="#" class="list-group-item">Mass Media</a>
+                                <a href="mba.php" class="list-group-item active">Masters in Business Administration</a>
+                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
+                                <a href="museum.php" class="list-group-item">Master's in Museum Studies</a>
+                                <a href="infos.php" class="list-group-item">MS in Information Systems</a>
+                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
+                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
                               </div>
                             </div>
 
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                               
 
-                              <h2>Earn Your Graduate Degree in Computer Science Software Development</h2>
+                              <h2>MASTER'S IN BUSINESS ADMINISTRATION</h2>
 
                               <p>The primary goal of the computer science software development program is to prepare students for the challenges faced by professionals in this rapidly changing field. Students may select from a broad base of advanced courses in software design and development, systems programming, database design and programming, computer architecture, distributed systems, artificial intelligence, game design and programming, web technology, networking and computer graphics.</p>
 
-                              <h3>5 Distinctions of the Marist MS in Computer Science Software Development Program:</h3>
+                              <h3>Course Requirements</h3>
+                              <p>Candidates for the Master of Science in Computer Science/Software Development must complete the following: </p>
+
+
+
                               <ol>
-                                  <li>Students can begin in Fall or Spring semesters and study full- or part-time. Courses are held at Marist's Poughkeepsie campus. </li>
-                                  <li>Marist is the first graduate institution to acquire zEnterprise machines</li>
-                                  <li>Marist is a NY State Center of Excellence in Cloud Computing and Business Analytics</li>
-                                  <li>Excellent name recognition providing employment and internship opportunities through Marist's Career Services Office</li>
-                                  <li>Merit Scholarships and Corporate and Organizational Partnerships are available to help reduce tuition costs</li>
+                                  <li>Economics Foundations  </li>
+                                  <li>Marketing Foundations</li>
+                                  <li>Analytical Tools for Decision Making </li>
+                                  <li>Accounting Foundations </li>
+                                  <li>Management Foundations</li>
+                                  <li>Finance Foundations </li>
+                                  <li>Global Environment of Business </li>
+                                  <li> International Economics</li>
+                                  <li>Strategic Marketing PlanningI</li>
+                                  <li> Managing Organizational Change</li>
                               </ol>
                           
-                              <p>The recently revised Software Development curricula includes both cloud computing and mobile computing areas of specialization and prepares graduates for a rapidly evolving job market and emerging trends in the field.</p>
+                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
 
-                              <b>New Software Development Course Requirements</b>
-
-                              <ul>
-                                  <li>Required Core Courses (16 credits)</li>
-                                  <li>MSCS 510 Software Design & Development </li>
-                                  <li>MSCS 542 Database management  Systems </li>
-                                  <li>MSCS 560 Networking</li>
-                                  <li>MSCS 630 Security Algorithms & Protocols</li>
-                              </ul> 
-                             
-                              
-                             
-                             
-
-                              Specialization Tracks (8 credits, choose one) 
-
-                              Cloud Computing
-                              MSCS 680 Parallel Processing
-                              MSCS 620 Cloud Computing
-
-                              Mobile Computing
-                              MSCS 565 Game Development I
-                              MSCS 700 Enterprise Mobile Developement
-
-                              Required Capstone (4 credits)
-                              MSCS 710 Project
-
-                              Elective Courses (4 credits, choose one)
-                              MSCS 665 Game Development II 
-                              MSCS 555 Computer Graphics 
-                              MSCS 550 Artificial Intelligence
-                              MSCS 720 Software Verification & Maintenance
-                              MSCS  XXX Independent Study
-
-                              Total Credit Required for Degree: 32
-
-                              Students without a B.S. in Computer Science may be required to take the following prerequisites (16 credits):
-                              MSCS 501 Object-Oriented Programming
-                              MSCS 502 Advanced Data Structures
-                              MSCS 503 Computer Organization and Architecture
-                              MATH 250 Discrete Mathematics
-
-
-
-
+                              <b>Onkar P. Sharma, Ph.D.
+                              (845) 575-3000, ext. 3610 or 2523
+                              onkar.sharma@marist.edu </b>
 
 
                             </div>

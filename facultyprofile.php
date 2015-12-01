@@ -1,7 +1,62 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+
+if(isset($_POST['submit']))
+{
+ $fid = mysqli_real_escape_string($link,$_POST['id']);
+ $ffname = mysqli_real_escape_string($link,$_POST['fname']);
+ $flname = mysqli_real_escape_string($link,$_POST['lname']);
+ $fdob = mysqli_real_escape_string($link,$_POST['date']);
+ $fgender = mysqli_real_escape_string($link,$_POST['gender']);
+ $fphone = mysqli_real_escape_string($link,$_POST['phone']);
+ $femail = mysqli_real_escape_string($link,$_POST['email']);
+ $faddress = mysqli_real_escape_string($link,$_POST['address']);
+ 
+
+ if(mysqli_query($link,"INSERT INTO faculty(f_id,f_firstName,f_lastName,f_dob,f_gender,f_phone,f_email,f_address) VALUES('$fid','$ffname','$flname','$fdob','$fgender','$fphone','$femail','$faddress')"))
+ {
+  ?>
+        <script>alert('successfully registered ');</script>
+        <?php
+        header("location: faculty.php");
+ }
+ else
+ {
+  ?>
+        <script>alert('error while registering you...');</script>
+        <?php
+ }
+}
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Marist college Faculty Profile</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -40,10 +95,10 @@
                           <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.html"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
@@ -53,10 +108,10 @@
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,68 +123,87 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-md-offset-1 col-lg-offset-1">
+                            <legend>Faculty Registration Process</legend>
+                            </div>
+                            <form method="post">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            FACULTY ID :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="number" name="id" id="inputSID" class="form-control" value="" required="required"  title="">
+                            </div>
+
+
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             FACULTY FIRST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fFName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="fname" id="inputName" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             FACULTY LAST NAME :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="lname" id="inputName" class="form-control" value="" required="required"  title="">
                             </div>
 
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            FACULTY MIDDLE NAME :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fMName" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
+                            
                             
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             DATE OF BIRTH :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fDOB" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="date" name="date" id="inputDate" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             GENDER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fGEN" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                           
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="gender" id="mGender" value="M" checked="checked">
+                                Male
+                              </label>
+                              </div>
+                               <div class="radio">
+                               <label>
+                                <input type="radio" name="gender" id="fGender" value="F">
+                                Female
+                              </label>
+                            </div>
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             PHONE NUMBER :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fP#" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="number" name="phone" id="inputnumber" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            EMAIL-ID:
+                            EMAIL:
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fEID" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="email" name="email" id="inputEmail" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             ADDRESS :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fADD" id="inputSName" class="form-control" value="" required="required" pattern="" title="">
+                            <input type="text" name="address" id="inputAddress" class="form-control" value="" required="required"  title="">
                             </div>
 
                             <legend></legend>
 
                             <div class="btn-group col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-5 col-lg-offset-5">
-                            	<button type="button" class="btn btn-default">Submit</button>
+                            	<a><button type="submit" id="submit" name="submit" class="btn btn-lg btn-primary">submit</button></a>
                             	
-                            	<button type="button" class="btn btn-default">Clear</button>
+                            	<a href="facultyprofile.php"><button  type="button" class="btn btn-lg btn-primary">Clear</button></a>
                             </div>
 
 

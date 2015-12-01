@@ -1,3 +1,82 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+
+if(isset($_POST['submit']))
+{
+ $stuid = mysqli_real_escape_string($link,$_POST['sname']);
+
+$payedAmount = 0;
+$sql = 'SELECT amount from fee where stu_id ="'.$stuid.'"';
+$retval = mysqli_query($link,$sql);
+$row = mysqli_fetch_array($retval);
+
+if($row['amount']){
+	$payedAmount = $row['amount'];
+}
+
+console("ayedAmount ");
+console($payedAmount);
+$amount = mysqli_real_escape_string($link,$_POST['amount']);
+
+if($payedAmount <= 0 )
+	{
+		console("inserting");		 
+
+		 if(mysqli_query($link,"INSERT INTO fee(stu_id,amount) VALUES('$stuid',$amount)"))
+		 {
+		 echo "Payment Success";
+		 }
+		 else
+		 {
+		 	echo "Error while paying...";
+		 }
+
+}else{
+			$updatedAmt = (float)( $payedAmount + $amount);
+			console('$updatedAmt '.$updatedAmt);
+			console('$stuid '.$stuid);
+			
+			$sql = "UPDATE fee SET amount=".$updatedAmt." WHERE stu_id='".$stuid."'";
+			//$sql = "UPDATE USERS SET PASSWORD='".$newPwd."' where u_id=". $_SESSION['user'];
+
+			if(mysqli_query($link,$sql))
+				 {
+				 	console("updated");
+				 }
+
+		}
+
+	}
+
+
+ function console( $data ) {
+
+    if ( is_array( $data ) )
+        $output = "<script>console.log( 'Debug Objects: " . implode( ',', $data) . "' );</script>";
+    else
+        $output = "<script>console.log( 'Debug Objects: " . $data . "' );</script>";
+
+    echo $output;
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +116,7 @@
                           <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
@@ -47,7 +126,7 @@
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
@@ -56,7 +135,7 @@
                          <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -67,32 +146,47 @@
                             <!-- content -->                      
                             <div class="row" id="content">
                               <div class="container">
-                            <!-- Write Here -->
-                            <legend>Current Faculty</legend>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by ID :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
+                            <!-- Write Here --><form action="" method="POST" role="form">
+                            	<legend>Payment</legend>
+                            
+                            	<div class="form-group">
+                            	<select name="sname" id="sname" class="form-control">
+                            		<option value="">-- Select One --</option>
+                            		 	<?php
+                            	
+                            	$sql = 'SELECT stu_id,stu_Fname,stu_Lname from student';
+                            	
+                       
+                           //mysql_select_db('maristcollege');
+                           $retval = mysqli_query($link,$sql);
+                           
+                           if(! $retval )
+                           {
+                              die('Could not get data: ' . mysql_error());
+                           }
+                           
+                             while($row = mysqli_fetch_array($retval)){
+                             	 	
+                             	echo "<option value=".$row['stu_id'].'>'.$row['stu_id'].' - '.$row['stu_Fname'].' '.$row['stu_Lname'].'</option>';
 
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by Last Name :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLastName" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
-                            <p>
-                            &nbsp;
-                            </p>
+                             }
 
-                             <button type="button" class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 ">Search</button>
+
+                            	?>
 
 
 
-                            <legend>Regester a New Faculty</legend>
+                            	</select>
 
-                           <a href="facultyprofile.html"><center> <button type="button" class="btn btn-default">Create Faculty Profile      </button></center></a>
+                            		<label for="">amount</label>
+                            		<input type="text" class="form-control" id="amount" name="amount" placeholder="Input field">
+                            	</div>
+                            
+                            	
+                            
+                            	<button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                            </form>
+                            
 
                             
                         </div>

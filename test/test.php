@@ -1,3 +1,25 @@
+  <?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+
+   
+   ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -9,7 +31,7 @@
         <script src="http://code.jquery.com/jquery.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
       <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="./css/custom.css">
+      <link rel="stylesheet" type="text/css" href="../css/custom.css">
         
     </head>
     <body>
@@ -56,7 +78,7 @@
                          <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -67,12 +89,46 @@
                             <!-- content -->                      
                             <div class="row" id="content">
                               <div class="container">
-                            <!-- Write Here -->
 
-                            <legend>Computer Science</legend>
+
+                            <!-- Write Here -->
+                            <?php
+                            $sql = 'SELECT f_id,f_firstName,f_lastName FROM faculty WHERE f_id = 20001 ';
+   //mysql_select_db('maristcollege');
+   $retval = mysqli_query($link,$sql);
+   
+   if(! $retval )
+   {
+      die('Could not get data: ' . mysql_error());
+   }
+
+   echo "HELLO";
+   
+  echo "<table border='1'>
+<tr>
+<th>Id</th>
+<th>fname</th>
+<th>lname</th>
+
+</tr>";
+ 
+while($row = mysqli_fetch_array($retval))
+  {
+  echo "<tr>";
+  echo "<td>" . $row['f_id'] . "</td>";
+  echo "<td>" . $row['f_firstName'] . "</td>";
+  echo "<td>" . $row['f_lastName'] . "</td>";
+ 
+  echo "</tr>";
+  }
+echo "</table>";
+   
+   mysqli_close($link);
+   ?>
+
+
 
                             
-  
                         </div>
                             <!-- end Here -->
                            </div><!--/row-->
@@ -85,7 +141,7 @@
 
      <div class="row text-center" id="footer" >    
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
-                              	Marist
+                                Marist
                              </div>
                              <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
                                <ul class ="footer-links">
@@ -96,8 +152,9 @@
                              </div>
   
                         </div>   
-    	
+      
     
     </body>
     
 </html>
+  

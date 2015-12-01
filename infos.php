@@ -1,7 +1,28 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+$res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
+$userRow=mysqli_fetch_array($res);
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Information systems</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -43,20 +64,20 @@
                         <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,32 +89,56 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Current Faculty</legend>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by ID :
+
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                             <legend>Majors Offering</legend>
+                              <div class="list-group">
+                                <a href="majors.php" class="list-group-item">
+                                  MS in Computer Science
+                                </a>
+                                <a href="mba.php" class="list-group-item">Masters in Business Administration</a>
+                                <a href="comm.php" class="list-group-item">M.A.in Communication</a>
+                                <a href="museum.php" class="list-group-item">Master's in Museum Studies</a>
+                                <a href="infos.php" class="list-group-item active">MS in Information Systems</a>
+                                <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
+                                <a href="acco.php" class="list-group-item">MS in Accounting</a>
+                              </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fID" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
+
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                              
+
+                              <h2>MASTER OF SCIENCE IN INFORMATION SYSTEMS </h2>
+
+                              <p>The Marist College Master’s of Science in Information Systems Management (ISM) Degree Track is designed to provide graduate students with the knowledge to combine business, strategy and technical skills and execute them in complex business situations. Through our school's blended business-technology program, ISM students gain the necessary skills to prepare them to be the next generation of technology managers to lead in innovative ways, and operate effectively in an increasingly connected world.</p>
+
+                              <h3>Course Requirements</h3>
+                              <p>Candidates for the Master of Science in Information Systems must complete the following: </p>
+
+
+
+                              <ol>
+                                  <li> Systems & Information Concepts in Organizations </li>
+                                  <li> Data Management I </li>
+                                  <li>Data Communications </li>
+                                  <li>Information Analysis </li>
+                                  <li> Systems Design</li>
+                                  <li> Information Systems Policy </li>
+                                  <li>Marketing Foundations</li>
+                                  <li>Management Foundations</li>
+                                  <li>Finance Foundations</li>
+                                  <li>Project</li>
+                              </ol>
+                          
+                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
+
+                              <b>Onkar P. Sharma, Ph.D.
+                              (845) 575-3000, ext. 3610 or 2523
+                              onkar.sharma@marist.edu </b>
+
+
                             </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
-                            Search by Last Name :
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <input type="text" name="fLastName" id="inputSID" class="form-control" value="" required="required" pattern="" title="">
-                            </div>
-                            <p>
-                            &nbsp;
-                            </p>
-
-                             <button type="button" class="btn btn-default col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 ">Search</button>
-
-
-
-                            <legend>Regester a New Faculty</legend>
-
-                           <a href="facultyprofile.html"><center> <button type="button" class="btn btn-default">Create Faculty Profile      </button></center></a>
-
+                        
                             
                         </div>
                             <!-- end Here -->

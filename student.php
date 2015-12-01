@@ -1,7 +1,32 @@
+<?php
+session_start();
+//include_once 'js/dbconnect.php';
+
+$link = mysqli_connect("localhost", "root", "", "maristcollege");
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+if(!isset($_SESSION['user']))
+{
+ header("Location: login.php");
+}
+
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Marist college Students</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -34,16 +59,16 @@
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="/#/"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="/#/trends/temp"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="#/trends/pulse"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;majors </a>
                         </li>
                         
                        <li>
@@ -53,10 +78,10 @@
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
-                         <a  class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
+                         <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
                        </li>
                       </ul>
                     </div>
@@ -68,8 +93,38 @@
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <legend>Electronics</legend>
+
+
+                            <legend>Current Students</legend>
+
+                            <form action="studentdetails.php" method="POST">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            Search by ID :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sID" id="sID" class="form-control" value=""   title="">
                             
+                            <span class="text-center">( OR )</span>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            Search by Last Name :
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
+                            <input type="text" name="sLastName" id="sLastName" class="form-control" value=""   title="">
+                            </div>
+                            <p>
+                            &nbsp;
+                            </p>
+
+                             <input  class="btn btn-primary col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
+                             </form>
+
+
+
+                            <legend>Regester a New Student</legend>
+
+                           <a href="studentprofile.php"> <center><button type="button" class="btn btn-primary">Create Student Profile</button></center></a>
 
                             
                         </div>

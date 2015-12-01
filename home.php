@@ -16,12 +16,13 @@ if(!isset($_SESSION['user']))
 }
 $res=mysqli_query($link,"SELECT * FROM users WHERE u_id=".$_SESSION['user']);
 $userRow=mysqli_fetch_array($res);
+
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Demo</title>
+        <title>Marist college home page</title>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Demo project">
@@ -32,7 +33,7 @@ $userRow=mysqli_fetch_array($res);
       <link rel="stylesheet" type="text/css" href="./css/custom.css">
         
     </head>
-    <body>
+    <body >
 
         <div class="wrapper">
         <div class="box">
@@ -54,26 +55,26 @@ $userRow=mysqli_fetch_array($res);
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="home.html"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
-                          <a href="Student.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
+                          <a href="Student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
                         </li>
                         <li >
-                        <a href="faculty.html"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
+                        <a href="faculty.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Faculty </a>
                         </li>
                         <li>
-                          <a href="#/trends/blood"><i class="glyphicon glyphicon-book"></i>&nbsp;Courses </a>
+                          <a href="majors.php"><i class="glyphicon glyphicon-book"></i>&nbsp;Majors </a>
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
                         <li>
-                         <a href="#/profile"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
+                         <a href="yourprofile.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Your Profile</a>
                        </li>
                        <li>
                          <a  href="logout.php?logout" class="clickable"><i class="glyphicon glyphicon-off"></i>&nbsp;Logout</a>
@@ -88,11 +89,86 @@ $userRow=mysqli_fetch_array($res);
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <div class="row" style="    padding-bottom: 11px;">
-                            <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11 col-md-offset-1 col-lg-offset-1">
-                              <img src="./images/campusgreen.jpg" class="img-responsive">
+                           <center> <h3><?php
+                            echo "Welcome: ";
+                            echo $_SESSION['userName'];
+                            ?></h3></center>
+
+                          
+
+                              <div id="carousel-example-generic" class="carousel slide col-sm-12 col-xs-12 col-md-10 col-lg-10 col-md-offset-1 col-lg-offset-1 " data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                  <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                  <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                 
+                                </ol>
+                               
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                  <div class="item active "  >
+                                    <img src="./images/campusgreen.jpg" alt="..." class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3>Campus Green</h3>
+                                    </div>
+                                  </div>
+                                  <div class="item ">
+                                    <img src="./images/graduation.jpg" alt="..." class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3>Graduation Day of College</h3>
+                                    </div>
+                                  </div>
+                                  
+
+                                  <div class="item ">
+                                    <img src="./images/sports.jpg" alt="..." class="img-responsive">
+                                    <div class="carousel-caption">
+                                        <h3>College Ground</h3>
+                                    </div>
+                                  </div>
+                                </div>
+                               
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                  <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                  <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                              </div> <!-- Carousel -->
+
+                              <div  class="list-group col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                             
+                               
                               
+                             
                             </div>
+<<<<<<< HEAD
+                              
+                              <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                               <a href="addmajor.php" class="btn btn-primary"><center> addmajor/courses</center></a>
+                               </div>
+                               <!--<div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                               <a href="https://www.marist.edu/events/" target="_blank" class="btn btn-primary"><center>events</center></a>
+                               </div>-->
+                                <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                                <a href="schedules.php" class="btn btn-primary"><center>schedules/events</center></a>
+                                </div>
+                                 <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                                <a href="#" class="btn btn-primary"><center>Telephone Services</center></a>
+                                </div>
+                                 <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                              <a href="facultyaddcourse.php" class="btn btn-primary"><center>faculty add courses</center></a>
+                              </div>
+                              
+                                <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                              <a href="yourprofile.php" class="btn btn-primary"><center>changing password</center></a>
+                              </div>
+            
+                               </div>
+
+=======
                             </div>
 
                             <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 ">
@@ -105,23 +181,12 @@ $userRow=mysqli_fetch_array($res);
                               <a href="http://www.marist.edu/it/telecom/students.html" target="_blank" class="list-group-item"><center>Telephone Services</center></a>
                               <a href="http://www.marist.edu/it/telecom/staff.html" target="_blank" class="list-group-item"><center>faculty services</center></a>
                               <a href="https://maristdining.sodexomyway.com/?" target="_blank" class="list-group-item"><center>Dining services</center></a>
+>>>>>>> refs/remotes/origin/master
                             </div>
-
-                            <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-0 col-lg-offset-0">
-                              <a href="#" class="list-group-item"><center>Account & Info</center></a>
-                              <a href="#" class="list-group-item"><center>password Change</center></a>
-                              <a href="#" class="list-group-item"><center>notes to do</center></a>
                             </div>
 
                             
-
-                              
-                              
-
                             </div>
-
-
-
 
                             </div>
                             <!-- end Here -->
