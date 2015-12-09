@@ -75,6 +75,10 @@ if(!isset($_SESSION['user']))
                        <li>
                          <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
+                       </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
@@ -89,12 +93,12 @@ if(!isset($_SESSION['user']))
                 </div>
                 <!-- /top nav -->
                     <div class="padding">
-                        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                        <div class="col-sm-12 col-xs-12 col-md-5 col-lg-5 col-md-offset-1 col-lg-offset-1" style="padding-top:50px">
                             <!-- content -->                      
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-                            <div class="container">
+                           
 
 							                            	<?php
 							$monthNames = Array("January", "February", "March", "April", "May", "June", "July", 
@@ -171,21 +175,142 @@ if(!isset($_SESSION['user']))
 							</td>
 							</tr>
 							</table>
-		
-
-
-
-
-
-
-
-                            
-
-                            
+     
                         </div>
                             <!-- end Here -->
                            </div><!--/row-->
                         </div><!-- /col-9 -->
+                         <div class="col-sm-12 col-xs-12 col-md-5 col-lg-5 " style="padding-top:120px">
+
+               <table class="table table-striped table-bordered table-hover ">
+                             <thead>
+                               <tr bgcolor="#B01B1B" style="color:#FFFFFF">
+                                 <th>DATE</th>
+                                 <th>EVENT</th>
+                                 <th>INFORMATION</th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               <tr>
+                                 <td>09-01-2015 <span class="badge">September</span></td>
+                                 <td>Orientation</td>
+                                 <td>Semester Starts. you can choose major and courses</td>
+                               </tr>
+                               <tr>
+                                 <td>09-07-2015</td>
+                                 <td>Last day for Add or drop Courses</td>
+                                 <td>Get into Office building students who adds or drop courses </td>
+                               </tr>
+                               <tr>
+                                 <td>09-11-2015</td>
+                                 <td>Cultural Program</td>
+                                 <td>Get together for all the students joined in the college </td>
+                               </tr>
+                               <tr>
+                                 <td>09-19-2015</td>
+                                 <td>Food Festival</td>
+                                 <td>Near Boat House Hall</td>
+                               </tr>
+                               <tr>
+                                 <td>09-23-2015</td>
+                                 <td>last day for feepayment</td>
+                                 <td>students must pay before due date</td>
+                               </tr>
+
+                               <tr>
+                                 <td>10-2-2015<span class="badge">October</span></td>
+                                 <td>columbus day</td>
+                                 <td>holiday college closed</td>
+                               </tr>
+
+                               <tr>
+                                 <td>10-08-2015</td>
+                                 <td>speech on security</td>
+                                 <td>hancock building room-2001</td>
+                               </tr>
+
+                               <tr>
+                                 <td>10-12-2015</td>
+                                 <td>fall Break</td>
+                                 <td>holidays and college closed till 10-18-2015</td>
+                               </tr>
+
+                               <tr>
+                                 <td>10-23-2015</td>
+                                 <td>first mid</td>
+                                 <td>exams starts</td>
+                               </tr>
+
+                               <tr>
+                                 <td>10-28-2015</td>
+                                 <td></td>
+                                 <td>mid exams ends</td>
+                               </tr>
+
+                               <tr>
+                                 <td>11-04-2015<span class="badge">November</span></td>
+                                 <td></td>
+                                 <td>grades will be out</td>
+                               </tr>
+
+                               <tr>
+                                 <td>11-13-2015</td>
+                                 <td>halloween</td>
+                                 <td>hopliday, college will be closed</td>
+                               </tr>
+
+                               <tr>
+                                 <td>11-18-2015</td>
+                                 <td></td>
+                                 <td>Semester Starts</td>
+                               </tr>
+
+                               <tr>
+                                 <td>11-21-2015</td>
+                                 <td></td>
+                                 <td>Semester Starts</td>
+                               </tr>
+
+                               <tr>
+                                 <td>11-26-2015</td>
+                                 <td>thanks giving break</td>
+                                 <td>holidays for black friday and thanks givivng</td>
+                               </tr>
+
+                               <tr>
+                                 <td>12-07-2015<span class="badge">December</span></td>
+                                 <td></td>
+                                 <td></td>
+                               </tr>
+
+                               <tr>
+                                 <td>12-11-2015</td>
+                                 <td></td>
+                                 <td>Final Exams starts</td>
+                               </tr>
+
+                               <tr>
+                                 <td>12-17-2015</td>
+                                 <td></td>
+                                 <td>Semester Ends</td>
+                               </tr>
+
+                               <tr>
+                                 <td>12-23-2015</td>
+                                 <td></td>
+                                 <td>final grades will be out</td>
+                               </tr>
+                              
+
+
+                             </tbody>
+                           </table>
+
+
+
+
+
+
                 </div><!-- /padding -->
              </div>
          </div>
@@ -196,12 +321,17 @@ if(!isset($_SESSION['user']))
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                 
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   

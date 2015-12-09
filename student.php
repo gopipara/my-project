@@ -74,6 +74,10 @@ if(!isset($_SESSION['user']))
                        <li>
                          <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
+                       </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
@@ -93,12 +97,14 @@ if(!isset($_SESSION['user']))
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
-
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " >
 
                             <legend>Current Students</legend>
 
+                            </div>
+
                             <form action="studentdetails.php" method="POST">
-                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ol-md-offset-1 col-lg-offset-1">
                             Search by ID :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
@@ -120,11 +126,27 @@ if(!isset($_SESSION['user']))
                              <input  class="btn btn-primary col-xs-12 col-sm-12 col-md-1 col-lg-1 col-md-offset-5 col-lg-offset-5 " value="Search" type="submit">
                              </form>
 
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding-bottom:50px">
+                            <legend >Regester a New Student</legend>
+
+                            <div style="padding-top:30px ; padding-left:200px">
 
 
-                            <legend>Regester a New Student</legend>
+                           <a href="studentprofile.php"> <center><button type="button" class="btn btn-primary col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2" >Create Student Profile</button></center></a>
+                           </div>
+                           </div>
 
-                           <a href="studentprofile.php"> <center><button type="button" class="btn btn-primary">Create Student Profile</button></center></a>
+                          
+                          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 " style="padding-bottom:50px">
+
+                           <legend>Add / Drop</legend> 
+
+                           <div style="padding-top:30px ; padding-left:200px">
+                           <a href="addmajor.php"> <center><button type="button" class="btn btn-primary col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-2 col-lg-offset-2" >Click to add major/courses</button></center></a>
+
+                           </div>
+
+                           </div>
 
                             
                         </div>
@@ -141,12 +163,17 @@ if(!isset($_SESSION['user']))
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                 
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   

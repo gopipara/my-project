@@ -70,6 +70,10 @@ $userRow=mysqli_fetch_array($res);
                        <li>
                          <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
+                       </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
@@ -91,6 +95,9 @@ $userRow=mysqli_fetch_array($res);
                             <!-- Write Here -->
 
                             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+
+                              
+
                              <legend>Majors Offering</legend>
                               <div class="list-group">
                                 <a href="majors.php" class="list-group-item ">
@@ -103,9 +110,20 @@ $userRow=mysqli_fetch_array($res);
                                 <a href="mhealth.php" class="list-group-item">M.A.in Mental Health Counseling</a>
                                 <a href="acco.php" class="list-group-item active">MS in Accounting</a>
                               </div>
+
+
+
                             </div>
 
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+
+
+                            <div class="row" style="     padding-top:30px; ">
+                            <div >
+                              <img src="./images/Accounting.jpg" class="img-responsive">
+                              
+                            </div>
+                            </div>
                               
 
                               <h2>MASTER OF SCIENCE IN ACCOUNTING </h2>
@@ -129,15 +147,29 @@ $userRow=mysqli_fetch_array($res);
                                   <li>Tax I</li>
                                   <li>Government and Not-For-Profit Accounting</li>
                               </ol>
+
+                              <legend>DIRECTOR, MS IN ACCOUNTING</legend>
+
+                              <center><div class="row"  >
+                            <div >
+                              <img src="./images/fac3.jpg" class="img-responsive">
+                              
+                            
                           
-                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
+                              <!--<h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>-->
 
                               <b>Onkar P. Sharma, Ph.D.
-                              (845) 575-3000, ext. 3610 or 2523
+                              (845) 575-3008, ext. 3610 or 2522
                               onkar.sharma@marist.edu </b>
 
-
+                              </div>
                             </div>
+
+
+                             
+
+
+                            </div></center>
                         
                             
                         </div>
@@ -154,12 +186,17 @@ $userRow=mysqli_fetch_array($res);
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                 
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   

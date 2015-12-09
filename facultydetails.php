@@ -84,7 +84,11 @@ if(!isset($_SESSION['user']))
                         </li>
                         
                        <li>
-                         <a><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                         <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
+                       </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
                        </li>
                      
                         </ul>
@@ -137,7 +141,7 @@ if(!isset($_SESSION['user']))
                              <?php
                              if($fid != ''){
                                                     $sqli = 'SELECT * FROM faculty WHERE f_id = '.$fid;
-                                                    echo $sqli;
+                                                    
                            //mysql_select_db('maristcollege');
                            $result = mysqli_query($link,$sqli);
                            
@@ -146,7 +150,7 @@ if(!isset($_SESSION['user']))
                               die('Could not get data: ' . mysql_error());
                            }
 
-                           echo "HELLO";
+                           
                            
                           echo "<table class='table table-hover'>
                         <tr>
@@ -186,10 +190,10 @@ if(!isset($_SESSION['user']))
 
                             <div class="table-responsive">
                              <?php
-                             echo $_POST["fLastName"];
+                             
                              if($fln != ''){
                                                     $sql = 'SELECT * FROM faculty WHERE f_lastName LIKE "%'.$fln.'%"';
-                                                    echo $sql;
+                                                    
                            //mysql_select_db('maristcollege');
                            $retval = mysqli_query($link,$sql);
                            
@@ -254,12 +258,17 @@ if(!isset($_SESSION['user']))
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                 
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   

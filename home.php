@@ -70,6 +70,10 @@ $userRow=mysqli_fetch_array($res);
                        <li>
                          <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
+                       </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
@@ -144,11 +148,8 @@ $userRow=mysqli_fetch_array($res);
                               
                              
                             </div>
-<<<<<<< HEAD
                               
-                              <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
-                               <a href="addmajor.php" class="btn btn-primary"><center> addmajor/courses</center></a>
-                               </div>
+                              
                                <!--<div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
                                <a href="https://www.marist.edu/events/" target="_blank" class="btn btn-primary"><center>events</center></a>
                                </div>-->
@@ -156,8 +157,14 @@ $userRow=mysqli_fetch_array($res);
                                 <a href="schedules.php" class="btn btn-primary"><center>schedules/events</center></a>
                                 </div>
                                  <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
-                                <a href="#" class="btn btn-primary"><center>Telephone Services</center></a>
+                                <a href="telephoneservices.php" class="btn btn-primary"><center>Telephone Services</center></a>
                                 </div>
+
+                                <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
+                               <a href="addmajor.php" class="btn btn-primary"><center> addmajor/courses</center></a>
+                               </div>
+
+
                                  <div class="col-sm-12 col-xs-12 col-md-1 col-lg-1 col-md-offset-1 col-lg-offset-1">
                               <a href="facultyaddcourse.php" class="btn btn-primary"><center>faculty add courses</center></a>
                               </div>
@@ -168,20 +175,6 @@ $userRow=mysqli_fetch_array($res);
             
                                </div>
 
-=======
-                            </div>
-
-                            <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-1 col-lg-offset-1 ">
-                              <a href="https://www.marist.edu/academics/advise/" target="_blank" class="list-group-item"><center>services</center></a>
-                              <a href="https://www.marist.edu/events/" class="list-group-item"><center>events</center></a>
-                              <a href="#" class="list-group-item"><center>schedules</center></a>
-                            </div>
-
-                            <div class="list-group col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-offset-0 col-lg-offset-0">
-                              <a href="http://www.marist.edu/it/telecom/students.html" target="_blank" class="list-group-item"><center>Telephone Services</center></a>
-                              <a href="http://www.marist.edu/it/telecom/staff.html" target="_blank" class="list-group-item"><center>faculty services</center></a>
-                              <a href="https://maristdining.sodexomyway.com/?" target="_blank" class="list-group-item"><center>Dining services</center></a>
->>>>>>> refs/remotes/origin/master
                             </div>
                             </div>
 
@@ -203,12 +196,17 @@ $userRow=mysqli_fetch_array($res);
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   

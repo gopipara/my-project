@@ -70,6 +70,10 @@ $userRow=mysqli_fetch_array($res);
                        <li>
                          <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
+                       </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
@@ -108,6 +112,13 @@ $userRow=mysqli_fetch_array($res);
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                               
 
+                              <div class="row" style="     padding-top:50px; ">
+                            <div >
+                              <img src="./images/info.jpg" class="img-responsive" style=" padding-bottom:50px; ">
+                              
+                            </div>
+                            </div>
+
                               <h2>MASTER OF SCIENCE IN INFORMATION SYSTEMS </h2>
 
                               <p>The Marist College Master’s of Science in Information Systems Management (ISM) Degree Track is designed to provide graduate students with the knowledge to combine business, strategy and technical skills and execute them in complex business situations. Through our school's blended business-technology program, ISM students gain the necessary skills to prepare them to be the next generation of technology managers to lead in innovative ways, and operate effectively in an increasingly connected world.</p>
@@ -130,11 +141,26 @@ $userRow=mysqli_fetch_array($res);
                                   <li>Project</li>
                               </ol>
                           
-                              <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>
+                              <legend>DIRECTOR, Masters in Information Systems </legend>
+                             
 
-                              <b>Onkar P. Sharma, Ph.D.
-                              (845) 575-3000, ext. 3610 or 2523
-                              onkar.sharma@marist.edu </b>
+
+
+                           <center> <div class="row" >
+                            <div >
+                              <img src="./images/fac1.jpg" class="img-responsive">
+                              
+                            
+                          
+                             <!-- <h4> DIRECTOR, SOFTWARE DEVELOPMENT PROGRAM,COMPUTER SCIENCE</h4>-->
+
+                              <b>Mathew Johnson, Ph.D.
+                              (845) 575-3001, ext. 3611 or 2528
+                              mathew.johnson@marist.edu </b>
+
+                              </div>
+                            </div>
+                            </div></center>
 
 
                             </div>
@@ -154,12 +180,17 @@ $userRow=mysqli_fetch_array($res);
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                 
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   

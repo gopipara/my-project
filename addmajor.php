@@ -29,6 +29,15 @@ if(!isset($_SESSION['user']))
 
 $stuid = '';
 $regCourseId ='';
+if(isset($_POST['mID'])){
+  $mid = mysqli_real_escape_string($link,$_POST['mID']);
+ 
+  $regCourseId = $mid;
+console("Major ID");
+  
+}else{
+   $mid = '';
+}
 
 if(isset($_POST['submit']))
 {
@@ -36,7 +45,7 @@ if(isset($_POST['submit']))
 console("$stuid");
 $majorExist = false;
 $sql = 'SELECT m_id from stumajor where stu_id ="'.$stuid.'"';
-
+console($sql);
 
 //$regCourseId = '';
 $retval = mysqli_query($link,$sql);
@@ -60,18 +69,10 @@ else{
 
 	
 
-//getting regstered courses count
-$regCourseCnt = 0;
-$sql = 'SELECT * from stucourses where stu_id ="'.$stuid.'"';
-//$regCourseId = '';
-$retval = mysqli_query($link,$sql);
-$regCourseCnt = mysqli_num_rows($retval);
 
 
 
-
-
-  $mid = '';
+ 
   if (isset($_POST["submit"]))
   {
 
@@ -107,8 +108,21 @@ $regCourseCnt = mysqli_num_rows($retval);
  if (isset($_POST["submitCourse"]))
   {
   	console('submit course ###');
-  	$sid = $stuid;
-  	console($sid);
+    $sid = mysqli_real_escape_string($link,$_POST['sname']);
+    $mid = mysqli_real_escape_string($link,$_POST['mID']);
+    $stuid = $sid;
+  	console("sid ".$sid);
+
+
+
+    //getting regstered courses count
+    $regCourseCnt = 0;
+    $sql = 'SELECT * from stucourses where stu_id ="'.$sid.'"';
+    //$regCourseId = '';
+    $retval = mysqli_query($link,$sql);
+    $regCourseCnt = mysqli_num_rows($retval);
+
+
 
   	$cnt =0;
   	foreach($_POST['check_list'] as $check) {  
@@ -128,7 +142,9 @@ $regCourseCnt = mysqli_num_rows($retval);
    			 }
 
   	 }else{
-  	 	console("u cant add course");
+  	 	 ?>
+        <script>alert('You can not register more than 3 courses!');</script>
+        <?php
   	 }
   
   }//submit selected courses
@@ -138,6 +154,9 @@ $regCourseCnt = mysqli_num_rows($retval);
  if (isset($_POST["dropCourse"]))
   {
   	console('dropCourse ###');
+    $stuid = mysqli_real_escape_string($link,$_POST['sname']);
+    $mid = mysqli_real_escape_string($link,$_POST['mID']);
+    console($stuid);
   	$sid = $stuid;
 
   	foreach($_POST['check_list'] as $check) {   
@@ -213,6 +232,10 @@ $regCourseCnt = mysqli_num_rows($retval);
                        <li>
                          <a href="feestructure.php"><i class="glyphicon glyphicon-usd"></i>&nbsp;Fee Structure</a>
                        </li>
+
+                       <li>
+                         <a href="fee.php"><i class="glyphicon glyphicon-usd"></i>&nbsp; Payment </a>
+                       </li>
                      
                         </ul>
                       <ul class="nav navbar-nav pull-right" >
@@ -232,15 +255,17 @@ $regCourseCnt = mysqli_num_rows($retval);
                             <div class="row" id="content">
                               <div class="container">
                             <!-- Write Here -->
+
+                            <legend>ADD MAJORS/ COURSES</legend>
                             <form name="addMajor" action="" method="POST">
-                            <legend>search student</legend>
+                           
                             
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             Search by student id :
                             </div>
 
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <select name="sname" id="sname" class="form-control">
+                            <select required name="sname" id="sname" class="form-control">
                             	<option value="">-- Select One --</option>
 
                             	<?php
@@ -278,12 +303,12 @@ $regCourseCnt = mysqli_num_rows($retval);
 
 
 
-                            <legend>search student</legend>
+                           
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
                             Search by major id :
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 ">
-                            <select name="mID" id="mID" class="form-control">
+                            <select required name="mID" id="mID" class="form-control">
                             	<option value="">-- Select One --</option>
 
                             	<?php
@@ -318,11 +343,14 @@ $regCourseCnt = mysqli_num_rows($retval);
                             &nbsp;
                             </p>
 
-                             <input  class="btn btn-default " value="addmajor" name="submit" type="submit">
+                              <div>
+                             <input  class="btn btn-Primary col-xs-12 col-sm-12 col-md-2 col-lg-2 col-md-offset-5 col-lg-offset-5 " value="addmajor" name="submit" type="submit">
+                             </div>
                             </form>
 
                               <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-md-offset-1 col-lg-offset-1">
                             	<form name="addCourseForm" action="" method="POST">
+                              <legend>Courses to register</legend>
 								<?php
                             	
 
@@ -353,15 +381,17 @@ $regCourseCnt = mysqli_num_rows($retval);
                              }
 
                              ?>
-                            	
-                            	  <input  class="btn btn-default " value="Add Selected Courses" name="submitCourse" type="submit">
+                            	<input type="hidden" name="sname"  value="<?=$stuid ?>">
+                                <input type="hidden" name="mID"  value="<?=$mid ?>">
+                            	  <input  class="btn btn-primary " value="Add Selected Courses" name="submitCourse" type="submit">
                             </form>
 
                             </div>
 
 
-                            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xs-12 col-sm-12 col-md-5 col-lg-5 col-md-offset-1 col-lg-offset-1" style="padding-left:100px" >
                             	<form name="dropCourseForm" action="" method="POST">
+                              <legend>courses Taken</legend>
 								<?php
                             	
 
@@ -392,8 +422,9 @@ $regCourseCnt = mysqli_num_rows($retval);
                              }
 
                              ?>
-                            	
-                            	  <input  class="btn btn-default " value="Drop Selected Courses" name="dropCourse" type="submit">
+                            	<input type="hidden" name="sname"  value="<?=$stuid ?>">
+                              <input type="hidden" name="mID"  value="<?=$mid ?>">
+                            	  <input  class="btn btn-primary btn btn-Primary " value="Drop Selected Courses" name="dropCourse" type="submit">
                             </form>
 
                             </div>
@@ -422,12 +453,17 @@ $regCourseCnt = mysqli_num_rows($retval);
                              <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 col-md-offset-1 navbar-brand">
                               	Marist
                              </div>
-                             <div class="col-xs-12 col-sm-7 col-md-5 col-lg-5 footer-nav">
-                               <ul class ="footer-links">
-                                 <li><a href="#/about">About</a></li>
-                                 <li> <a href="#/contact">Contact</a></li>
-                                 <li> <a href="#/faq">FAQ</a></li>
-                               </ul>
+                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 footer-nav">
+                               <ul class ="footer-links" >
+                                 <li><a href="README.md">About</a></li>
+                                 <li> <a href="team.php">Team</a></li>
+                                 
+                               
+                                <ul class="footer-links pull-right" style="padding-left:200px"  >
+                                <li><a href="presentation.php">Presentation</a></li>
+                                </ul>
+
+                                </ul>
                              </div>
   
                         </div>   
