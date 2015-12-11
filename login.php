@@ -6,7 +6,7 @@ if(isset($_SESSION['user'])!="")
 }
 
 
-$link = mysqli_connect("localhost", "root", "", "maristcollege");
+$link = mysqli_connect("localhost", "rakeshcollege", "Babblu1993", "rakeshcollege");
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -28,7 +28,7 @@ if(isset($_POST['submit']) && !isset($_SESSION['user']))
   $_SESSION['user'] = $row['u_id'];
   $_SESSION['userName'] = $row['u_name'];
 //echo $_SESSION['user'];
- header("Location: home.php");
+ header("Location: index.php");
  }
  else
  {

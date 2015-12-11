@@ -1,8 +1,8 @@
 <?Php
-$dbhost_name = "localhost"; // Your host name 
-$database = "maristcollege";       // Your database name
-$username = "root";            // Your login userid 
-$password = "";            // Your password 
+$dbhost_name = "fdb12.awardspace.net"; // Your host name 
+$database = "u781582974_db";       // Your database name
+$username = "u781582974_root";            // Your login userid 
+$password ="babblu1993";            // Your password 
 
 
 //////// Do not Edit below /////////

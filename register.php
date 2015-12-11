@@ -6,7 +6,7 @@ if(isset($_SESSION['user'])!="")
 }
 
 
-$link = mysqli_connect("localhost", "root", "", "maristcollege");
+$link = mysqli_connect("localhost", "rakeshcollege", "Babblu1993", "rakeshcollege");
 
 /* check connection */
 if (mysqli_connect_errno()) {

@@ -2,7 +2,7 @@
 session_start();
 //include_once 'js/dbconnect.php';
 
-$link = mysqli_connect("localhost", "root", "", "maristcollege");
+$link = mysqli_connect("localhost", "rakeshcollege", "Babblu1993", "rakeshcollege");
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -58,7 +58,7 @@ $userRow=mysqli_fetch_array($res);
                      <div class="collapse navbar-collapse" role="navigation">
                     <ul class="nav navbar-nav" >
                         <li>
-                          <a href="home.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
+                          <a href="index.php"><i class="glyphicon glyphicon-home"></i>&nbsp;Home</a>
                         </li>
                         <li>
                           <a href="student.php"><i class="glyphicon glyphicon-user"></i>&nbsp;Student </a>
